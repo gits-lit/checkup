@@ -9,6 +9,7 @@
     "face-api.js": "^0.22.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-webcam": "^5.2.3",
     "sass": "^1.32.8",

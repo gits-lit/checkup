@@ -60,14 +60,20 @@ const Video = () => {
               const imageData = ctx.getImageData(0, 0, 1280, 720);
               ctx.clearRect(0, 0, tempCanvas.width, tempCanvas.height);
               console.log('HERE IS THE DATA KYLE');
-              //console.log(imageData);
+              // BELOW IS THE OVERALL IMAGE DATA
               console.log(imageData.data);
+              // HERE ARE THE DIMENSIONS OF THE BOX PLEASE BE CAREFUL CANVAS LOCATIONS (I think canvas 0,0 is top right but you'll need to check)
+              console.log('x is ' + detections.box.x);
+              console.log('y is ' + detections.box.y);
+              console.log('width is ' + detections.box.width);
+              console.log('height is ' +detections.box.height);
               // Every 4 values is r, g, b, a repeated
               // Dimensions is width 1280 height 720
             }
           }
           //faceapi.draw.drawFaceExpressions(canvas, detections);
         }
+        // Change this for time between screenshots (in milliseconds)
       }, 5000);
    })
   }, []);
