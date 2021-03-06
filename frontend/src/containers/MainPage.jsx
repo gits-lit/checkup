@@ -1,9 +1,10 @@
 import React from 'react';
+import Video from '../components/Video';
 
 const MainPageContainer = () => {
   return (
     <div>
-      Hello World! Main
+      <Video />
     </div>
   )
 }
