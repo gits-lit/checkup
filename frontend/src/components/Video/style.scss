@@ -1,0 +1,15 @@
+.video-component {
+
+  #primary-canvas {
+    display: hidden;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 5;
+  }
+
+  img {
+    display: hidden;
+    position: absolute;
+  }
+}

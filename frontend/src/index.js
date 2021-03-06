@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
+import Video from './components/Video';
+
 ReactDOM.render(
-  <React.StrictMode>
-    <div>Test</div>
-  </React.StrictMode>,
+  <Video />,
   document.getElementById('root')
 );
