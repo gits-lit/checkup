@@ -11,7 +11,7 @@ const ResultHeader = (props) => {
       <div className="caution-note">
         <img src={caution} alt="caution" className="caution" />
         <h1>
-          This is <span className="bold">not</span> a medical advice. Checkup is a technical demonstration of bleeding-edge technology that has not been FDA approved. Use with caution!
+          This is <span className="bold">not</span> a medical advice. Checkup is a demonstration of new technology that has not been FDA approved. Use with caution!
         </h1>
         <h2 className="close-button">x</h2>
       </div>
