@@ -63,6 +63,9 @@ const SpeechDetector = (props) => {
   const { transcript, resetTranscript } = useSpeechRecognition();
 
   useEffect(() => {
+    props.setCurrentTranscript((transcriptinput) => {
+      return transcriptinput + ' ' + transcript;
+    })
     if (transcript.length > 130) {
       resetTranscript();
     }
