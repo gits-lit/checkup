@@ -6,6 +6,12 @@
   position: relative;
   width: 250px;
   text-align: center;
+  transition: 0.2s;
+  margin: 20px;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.05);
+  }
 
   .ant-progress-circle-gradient {
     height: 150px !important;

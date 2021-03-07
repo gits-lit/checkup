@@ -26,7 +26,6 @@ const Video = (props) => {
   const tempCanvasRef = useRef(null);
   const imageRef = useRef(null);
 
-  const [data, setData] = useState([]);
   const [emotion, setCurrentEmotion] = useState('neutral');
   const [emotions, setEmotions] = useState({
     angry: 0,
@@ -76,7 +75,7 @@ const Video = (props) => {
             setCurrentEmotion(emotion => mood);
           }
         }
-        setData( data => {
+        props.setData( data => {
           const newData = [...data];
           newData.push(heartRate);
           return newData;
@@ -163,7 +162,7 @@ const Video = (props) => {
         width={1280}
         videoConstraints={videoConstraints}
       />
-      <Chart plot={data}/>
+      <Chart plot={props.data}/>
       <Emotions emotion={emotion} />
       <canvas ref={canvasRef} id="primary-canvas" height={720} width={1280}/>
       <canvas ref={tempCanvasRef} id="secondary-canvas" height={720} width={1280}/>

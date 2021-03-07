@@ -1,13 +1,18 @@
 import React from 'react';
 
 import HeartRateGraph from '../components/HeartRateGraph';
+import BarGraph from '../components/BarGraph';
 import ProgressGraph from '../components/ProgressGraph';
 import ResultHeader from '../components/ResultHeader';
 
-const ResultPageContainer = () => {
+const ResultPageContainer = (props) => {
   return (
+<<<<<<< HEAD
     <div>
       <ResultHeader/>
+=======
+    <div className="result-page">
+>>>>>>> 51ae1df6d6d76cc32d171de88d8238292e5bd859
       <ProgressGraph color={{
         '0%': '#A643F4',
         '100%': 'rgba(249, 89, 166, 0.9)',
@@ -32,7 +37,8 @@ const ResultPageContainer = () => {
         name="&#x1F4AA; Physical Score"
         percent='49'
         title="Physical Health"/>
-      <HeartRateGraph emotions={[['name1','318'],['name2','93'],['name3','43'],['name4','20'],['name5','15']]}/>
+      <HeartRateGraph data={props.heartData}/>
+      <BarGraph emotions={[['name1','318'],['name2','93'],['name3','43'],['name4','20'],['name5','15']]}/>
     </div>
   )
 }

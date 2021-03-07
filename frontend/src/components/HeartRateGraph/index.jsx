@@ -1,62 +1,70 @@
 import React from 'react';
-import { Progress } from 'antd';
+import { Chart } from 'react-charts';
 
 import './style.scss';
 
+const defs = (
+  <defs>
+    <linearGradient id="0" x1="0" x2="0" y1="1" y2="0">
+      <stop offset="0%" stopColor="#17EAD9" />
+      <stop offset="100%" stopColor="#6078EA" />
+    </linearGradient>
+  </defs>
+)
+
 const HeartRateGraph = (props) => {
-  const maxTime = parseInt((props.emotions[0])[1]) + 7;
+  const data = React.useMemo(
+    () => {
+      const newData = [];
+      console.log(props.data);
+      for (let i = 0 ; i < props.data.length - 5; i += 5) {
+        console.log('loop');
+        console.log(i);
+        let average = 0;
+        for (let j = i; j < i + 5; j += 1) {
+          average += parseInt(props.data[j])
+        }
+        console.log(Math.floor(average/5));
+        newData.push([i, Math.floor(average/5)])
+      }
+			return [{
+        label: 'Heartbeat',
+        data: newData
+      }]
+		}, 
+    [props.plot]
+	);
+
+	const getSeriesStyle = React.useCallback((series) => {
+    return {
+      color: "#EFDCF6",
+    };
+  }, []);
+
+
+	const series = React.useMemo(
+    () => ({
+      type: 'area',
+			showPoints: true,
+    }),
+    []
+  )
+
+	const axes = React.useMemo(
+    () => [
+      { primary: true, type: 'linear', position: 'bottom', show: false },
+      { type: 'linear', position: 'left', show: false }
+    ],
+    []
+  )
+
   return (
     <div className="heart-rate-graph">
-        <h2 className="title">&#x1F4CA; Emotions Detected</h2>
-        <h3 className="description">Timed Duration</h3>
-        <div className="bar-container">
-          <h1>{Math.floor(parseInt((props.emotions[0])[1]) / 60)}M {parseInt((props.emotions[0])[1]) % 60}SEC</h1>
-          <Progress percent={Math.max(70, (parseInt((props.emotions[0])[1])/maxTime).toFixed(4) * 100)} showInfo={false} strokeLinecap="square" strokeWidth='55'strokeColor="#2F80ED"
-            trailColor="white"/>
-        </div>
-        <div className="bar-container">
-          <h1>{Math.floor(parseInt((props.emotions[1])[1]) / 60)}M {parseInt((props.emotions[1])[1]) % 60}SEC</h1>
-          <Progress percent={Math.max(60, (parseInt((props.emotions[1])[1])/maxTime).toFixed(4) * 100)} showInfo={false} strokeLinecap="square" strokeWidth='55'strokeColor="#F2994A"
-            trailColor="white"/>
-        </div>
-        <div className="bar-container">
-          <h1>{Math.floor(parseInt((props.emotions[2])[1]) / 60)}M {parseInt((props.emotions[2])[1]) % 60}SEC</h1>
-          <Progress percent={Math.max(57, (parseInt((props.emotions[2])[1])/maxTime).toFixed(4) * 100)} showInfo={false} strokeLinecap="square" strokeWidth='55'strokeColor="#219653"
-            trailColor="white"/>
-        </div>
-        <div className="bar-container">
-          <h1>{Math.floor(parseInt((props.emotions[3])[1]) / 60)}M {parseInt((props.emotions[3])[1]) % 60}SEC</h1>
-          <Progress percent={Math.max(47, (parseInt((props.emotions[3])[1])/maxTime).toFixed(4) * 100)} showInfo={false} strokeLinecap="square" strokeWidth='55'strokeColor="#F2C94C"
-            trailColor="white"/>
-        </div>
-        <div className="bar-container">
-          <h1>{Math.floor(parseInt((props.emotions[4])[1]) / 60)}M {parseInt((props.emotions[4])[1]) % 60}SEC</h1>
-          <Progress percent={Math.max(31, (parseInt((props.emotions[4])[1])/maxTime).toFixed(4) * 100)} showInfo={false} strokeLinecap="square" strokeWidth='55'strokeColor="#EB5757"
-            trailColor="white"/>
-        </div>
-        <div className="color-filter">
-          <div className="color-container">
-            <div className="cc1"></div>
-            <h3>{(props.emotions[0])[0]}</h3>
-          </div>
-          <div className="color-container">
-            <div className="cc2"></div>
-            <h3>{(props.emotions[1])[0]}</h3>
-          </div>
-          <div className="color-container">
-            <div className="cc3"></div>
-            <h3>{(props.emotions[2])[0]}</h3>
-          </div>
-          <div className="color-container">
-            <div className="cc4"></div>
-            <h3>{(props.emotions[3])[0]}</h3>
-          </div>
-          <div className="color-container">
-            <div className="cc5"></div>
-            <h3>{(props.emotions[4])[0]}</h3>
-          </div>
-        </div>
-
+      <h2 className="heading">💕 Heart Rate</h2>
+      <h3 className="subheading">Based off rolling average every 5 sec</h3>
+      <div className="graph-container">
+      <Chart data={data} axes={axes} series={series} getSeriesStyle={getSeriesStyle} tooltip renderSVG={() => defs} />
+      </div>
     </div>
   )
 }

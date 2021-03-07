@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from "react-router-dom";
 
 import LocationPage from './LocationPage'
 import NavBar from '../components/NavBar';
@@ -8,8 +9,9 @@ import SideBar from '../components/SideBar';
 import CameraPage from './CameraPage';
 
 const MainPageContainer = () => {
-
+  const history = useHistory();
   const [click, setClick] = useState('camera');
+  const [data, setData] = useState([]);
 
   return (
     <div>
@@ -26,7 +28,7 @@ const MainPageContainer = () => {
               nextStep='Step Three: Gather your results and look at our findings'
               number='2' 
               setBack={() => {
-                //setClick(clickInput);}
+                history.push('/onboarding');
               }}
               setNext={() => {
                 setClick('bullet');
@@ -34,7 +36,7 @@ const MainPageContainer = () => {
             />
             <CameraPage  setNext={() => {
                 setClick('bullet');
-              }}/>
+              }} data={data} setData={setData}/>
           </ParentPage> 
         : click === 'bullet' ?
           <ParentPage>
@@ -48,7 +50,7 @@ const MainPageContainer = () => {
                 setClick('location');
               }}
             />
-            <ResultPage />
+            <ResultPage heartData={data}/>
           </ParentPage> 
         : click === 'location' ?
           <ParentPage>
