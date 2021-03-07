@@ -37,7 +37,8 @@
 }
 
 .result-page {
-  display: flex;
+  display: inline-flex;
+  vertical-align: top;
   flex-wrap: wrap;
   width: 900px;
 }
