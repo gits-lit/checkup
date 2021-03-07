@@ -3,16 +3,13 @@ import React from 'react';
 import HeartRateGraph from '../components/HeartRateGraph';
 import BarGraph from '../components/BarGraph';
 import ProgressGraph from '../components/ProgressGraph';
+import PrognosisChart from '../components/PrognosisChart';
 import ResultHeader from '../components/ResultHeader';
 
 const ResultPageContainer = (props) => {
   return (
-<<<<<<< HEAD
-    <div>
-      <ResultHeader/>
-=======
     <div className="result-page">
->>>>>>> 51ae1df6d6d76cc32d171de88d8238292e5bd859
+      <ResultHeader/>
       <ProgressGraph color={{
         '0%': '#A643F4',
         '100%': 'rgba(249, 89, 166, 0.9)',
@@ -38,7 +35,10 @@ const ResultPageContainer = (props) => {
         percent='49'
         title="Physical Health"/>
       <HeartRateGraph data={props.heartData}/>
+
+      {/* give arrays of tuples, name tthenn seconds/percentages below*/}
       <BarGraph emotions={[['name1','318'],['name2','93'],['name3','43'],['name4','20'],['name5','15']]}/>
+      <PrognosisChart progonsis={[['name1','70'],['name2','40'],['name3','30'],['name4','20'],['name5','15']]}/>
     </div>
   )
 }
