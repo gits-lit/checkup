@@ -116,10 +116,15 @@ def recommendDoctors():
          return obj[fieldName]
       return ""
 
+   def getPhoto(obj):
+      if ("photos" in obj):
+         return obj["photos"][0]["photo_reference"]
+
+      return ""
+
    # diseases = request.json["diseases"]
    # zipcode = request.json["zipcode"]
    diseases = ["Common cold","Influenza","Meningitis"]
-   zipcode = 12345
    location = "32.7157,-117.1611"
    place_search_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
    place_details_url = "https://maps.googleapis.com/maps/api/place/details/json"
@@ -159,10 +164,10 @@ def recommendDoctors():
                   doctor["long"]         = getField(place_details,"geometry","location","lng")
                   doctor["address"]      = getField(place,"vicinity")
                   doctor["phone-number"] = getField(place_details,"formatted_phone_number")
-                  # doctor["office-hours"] =
+                  doctor["location-img"] = getPhoto(place_details)
                   doctors.append(doctor)
                   found_ids.append(getField(place_details, "place_id"))
       else:
-         print("Got status " + findplace_data["status"])
+         print("Got status " + findplace_data["status"] + " for " + disease)
 
    return make_response(jsonify({"doctors": doctors}), 200)

@@ -1039,7 +1039,7 @@
         "HealthSymptomLocationIDs":[16,40],
         "ProfName":"",
         "Synonyms":[]},
-    "Vomitingblood": {
+    "Vomiting blood": {
         "ID":181,    
         "HasRedFlag":true,
         "HealthSymptomLocationIDs":[6,25,16,36],
