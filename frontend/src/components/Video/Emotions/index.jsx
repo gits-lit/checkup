@@ -3,10 +3,6 @@ import './style.scss';
 import emoji from '../../../assets/emoji.svg';
 
 const Emotions = (props) => {
-	useEffect(() => {
-		console.log('hello');
-		console.log(props.emotion);
-	}, [props.emotion])
 
     return (
       <div className="emotion-detector">

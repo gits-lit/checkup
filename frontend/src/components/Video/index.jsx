@@ -53,7 +53,7 @@ const Video = (props) => {
       faceapi.nets.faceExpressionNet.loadFromUri('/models')
     ]).then(() => {
       interval2 = setInterval(async () => {
-        heartRate = thing.heartRate || 70;
+        heartRate = Math.floor(thing.heartRate) || 70;
         const video = document.getElementsByTagName('video')[0];
         if (video) {
           const detections2 = await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions()).withFaceExpressions();
@@ -66,8 +66,6 @@ const Video = (props) => {
                 mood = key;
               }
             });
-            console.log(mood);
-            console.log(max);
             setEmotions(emotions => {
               const newEmotions = {...emotions};
               if (mood in newEmotions) {
