@@ -5,6 +5,9 @@ import Questions from '../components/Questions';
 import SpeechDetector from '../components/SpeechDetector';
 import Toolbar from '../components/Toolbar';
 
+import OpusMediaRecorder from 'opus-media-recorder';
+window.MediaRecorder = OpusMediaRecorder;
+
 let currentRecorder = null;
 const CameraPage = (props) => {
   const [questionIndex, setQuestionIndex] = useState(1);
@@ -22,7 +25,7 @@ const CameraPage = (props) => {
     }
     else {
       props.setNext();
-      await currentRecorder.stop(questionIndex);
+      //await currentRecorder.stop(questionIndex);
     }
   }
   const moveBack = async () => {
@@ -45,53 +48,55 @@ const CameraPage = (props) => {
 
   const recordAudio = () =>
   new Promise(async resolve => {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    const mediaRecorder = new MediaRecorder(stream);
+    /*const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    const mediaRecorder = new MediaRecorder(stream, { audioBitsPerSecond: 128000, mimeType: "audio/ogg" });
     const audioChunks = [];
 
     mediaRecorder.addEventListener("dataavailable", event => {
       audioChunks.push(event.data);
     });
 
-    const start = () => mediaRecorder.start();
+      const start = () => {
+          mediaRecorder.start();
+          console.log('recording started!');
+      }
 
     const stop = (index) =>
       new Promise(resolve => {
         mediaRecorder.addEventListener("stop", () => {
-          const audioBlob = new Blob(audioChunks);
+          const audioBlob = new Blob(audioChunks, { type: "audio/ogg" });
           const audioUrl = URL.createObjectURL(audioBlob);
           const audio = new Audio(audioUrl);
           const play = () => audio.play();
           resolve({ audioBlob, audioUrl, play });
-/*
           const payload = {
             requests: [
               {
-                image: {
-                  "content": base64.replace("data:image/webp;base64,", "")
-                },
-                features: [
-                  {
-                    "maxResults": 5,
-                    "type": "OBJECT_LOCALIZATION"
+                  config: {
+                      encoding: "OGG",
+                      sampleRateHertz: 8000,
+                      languageCode: "en-US",
                   },
-                ]
+                  audio: {
+                      uri: audioUrl
+                  }
               }
             ]
-          }
-        
-          const response = await fetch(`https://speech.googleapis.com/v1/speech:recognize?key=${process.env.REACT_APP_API_KEY}`, {
+          };
+          const response = fetch(`https://speech.googleapis.com/v1/speech:recognize?key=${process.env.REACT_APP_API_KEY}`, {
             method: 'POST',
             headers: {
-              "Content-Type": "application/json",
-              "Content-Length": base64.replace("data:image/webp;base64,", "").length
+              "Content-Type": "application/json"
             },
             body: JSON.stringify(payload),
-          });
-        
-          const data = await response.json();
-          if (!data) throw new Error('Empty response from server');
-          if (data.error) throw new Error(data.error.message);*/
+          }).then(response => response.json())
+            .then(data => {
+                console.log("Successful API call!");
+                console.log(data);
+            })
+            .catch(error => {
+                throw new Error(error);
+            });
 
 
           // TODO: Replace with google speech to text response
@@ -105,13 +110,14 @@ const CameraPage = (props) => {
         console.log({...recordings});
       });
 
-    resolve({ start, stop });
+    resolve({ start, stop });*/
+    console.log('recording is gone');
   });
 
 
   const startRecording = async () => {
-    currentRecorder = await recordAudio();
-    currentRecorder.start();
+    //currentRecorder = await recordAudio();
+    //currentRecorder.start();
   }
 
   return (
