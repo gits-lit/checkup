@@ -5,6 +5,17 @@ import ProgressGraph from '../components/ProgressGraph';
 import PrognosisChart from '../components/PrognosisChart';
 import ResultHeader from '../components/ResultHeader';
 
+const checkYesOrNo = (string) => {
+    const yesPatterns = ["yes","yeah","yep","sometimes", "occasionally", "do", "think so"];
+    const noPatterns = ["no", "nope", "don't think so", "haven't", "have not", "doesn't"];
+    const patternMatchReduce = (acc, pattern) => acc || (string.match(pattern) !== null);
+    const mightHaveYes = yesPatterns.reduce(patternMatchReduce, false);
+    const mightHaveNo = noPatterns.reduce(patternMatchReduce, false);
+
+    // give more precedence to nos than yes's (if mightHaveNo is true then the entire thing is false)
+    return (!mightHaveNo) && mightHaveYes;
+}
+
 const ResultPageContainer = (props) => {
   const [newEmotionData, setEmotion] = useState([['name1','318'],['name2','93'],['name3','43'],['name4','20'],['name5','15']]);
 
