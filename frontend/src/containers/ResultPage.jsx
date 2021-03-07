@@ -2,9 +2,9 @@ import React from 'react';
 import HeartRateGraph from '../components/HeartRateGraph';
 import ProgressGraph from '../components/ProgressGraph';
 
-const ResultPageContainer = () => {
+const ResultPageContainer = (props) => {
   return (
-    <div>
+    <div className="result-page">
       <ProgressGraph color={{
         '0%': '#A643F4',
         '100%': 'rgba(249, 89, 166, 0.9)',
@@ -29,7 +29,7 @@ const ResultPageContainer = () => {
         name="&#x1F4AA; Physical Score"
         percent='49'
         title="Physical Health"/>
-      <HeartRateGraph />
+      <HeartRateGraph data={props.heartData}/>
     </div>
   )
 }

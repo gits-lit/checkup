@@ -10,6 +10,7 @@ import CameraPage from './CameraPage';
 const MainPageContainer = () => {
 
   const [click, setClick] = useState('camera');
+  const [data, setData] = useState([]);
 
   return (
     <div>
@@ -34,7 +35,7 @@ const MainPageContainer = () => {
             />
             <CameraPage  setNext={() => {
                 setClick('bullet');
-              }}/>
+              }} data={data} setData={setData}/>
           </ParentPage> 
         : click === 'bullet' ?
           <ParentPage>
@@ -48,7 +49,7 @@ const MainPageContainer = () => {
                 setClick('location');
               }}
             />
-            <ResultPage />
+            <ResultPage heartData={data}/>
           </ParentPage> 
         : click === 'location' ?
           <ParentPage>
