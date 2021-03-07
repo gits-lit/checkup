@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import HeartRateGraph from '../components/HeartRateGraph';
 import BarGraph from '../components/BarGraph';
 import ProgressGraph from '../components/ProgressGraph';
+import PrognosisChart from '../components/PrognosisChart';
+import ResultHeader from '../components/ResultHeader';
 
 const ResultPageContainer = (props) => {
   const [newEmotionData, setEmotion] = useState([['name1','318'],['name2','93'],['name3','43'],['name4','20'],['name5','15']]);
@@ -25,6 +27,7 @@ const ResultPageContainer = (props) => {
 
   return (
     <div className="result-page">
+      <ResultHeader/>
       <ProgressGraph color={{
         '0%': '#A643F4',
         '100%': 'rgba(249, 89, 166, 0.9)',
@@ -50,9 +53,12 @@ const ResultPageContainer = (props) => {
         percent='49'
         title="Physical Health"/>
       <HeartRateGraph data={props.heartData}/>
-      <BarGraph emotions={newEmotionData}/>
+
+      {/* give arrays of tuples, name tthenn seconds/percentages below*/}
+      <BarGraph emotions={[['name1','318'],['name2','93'],['name3','43'],['name4','20'],['name5','15']]}/>
+      <PrognosisChart progonsis={[['name1','70'],['name2','40'],['name3','30'],['name4','20'],['name5','15']]}/>
     </div>
   )
 }
 
-export default ResultPageContainer;
+export default ResultPageContainer;å
