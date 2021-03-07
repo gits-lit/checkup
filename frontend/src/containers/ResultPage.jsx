@@ -3,7 +3,6 @@ import HeartRateGraph from '../components/HeartRateGraph';
 import BarGraph from '../components/BarGraph';
 import ProgressGraph from '../components/ProgressGraph';
 import PrognosisChart from '../components/PrognosisChart';
-import ResultHeader from '../components/ResultHeader';
 
 const checkYesOrNo = (string) => {
     const yesPatterns = ["yes","yeah","yep","sometimes", "occasionally", "do", "think so"];
@@ -17,6 +16,17 @@ const checkYesOrNo = (string) => {
 }
 
 const ResultPageContainer = (props) => {
+  const [mentalHealthScore, setMentalHealthScore] = useState(0);
+  const [overallHealthScore, setOverallHealthScore] = useState(0);
+  const [physicalHealthScore, setPhysicalHealthScore] = useState(0);
+
+  useEffect(() => {
+    setTimeout(() => {setMentalHealthScore(89);
+    setOverallHealthScore(90);
+    setPhysicalHealthScore(91);
+    }, 1000);
+  }, [])
+
   const [newEmotionData, setEmotion] = useState([['name1','318'],['name2','93'],['name3','43'],['name4','20'],['name5','15']]);
 
   useEffect(() => {
@@ -37,15 +47,15 @@ const ResultPageContainer = (props) => {
   }, [props.emotionData]);
 
   return (
+    <>
     <div className="result-page">
-      <ResultHeader/>
       <ProgressGraph color={{
         '0%': '#A643F4',
         '100%': 'rgba(249, 89, 166, 0.9)',
         }}
         description="Based off of 3 heuristics"
         name="&#x1F4AF; Overall Score"
-        percent='83'
+        percent={overallHealthScore}
         title="Total Checkup"/>
       <ProgressGraph color={{
         '0%': '#AE72FF',
@@ -53,7 +63,7 @@ const ResultPageContainer = (props) => {
         }}
         description="Based off your audio answers"
         name="&#x2695; Mental Score"
-        percent='49'
+        percent={mentalHealthScore}
         title="Mental Health"/>
       <ProgressGraph color={{
         '0%': '#FA5656',
@@ -61,12 +71,13 @@ const ResultPageContainer = (props) => {
         }}
         description="Based off your audio answers"
         name="&#x1F4AA; Physical Score"
-        percent='49'
+        percent={physicalHealthScore}
         title="Physical Health"/>
       <HeartRateGraph data={props.heartData} />
-      <PrognosisChart progonsis={[['name1','70'],['name2','40'],['name3','30'],['name4','20'],['name5','15']]}/>
       <BarGraph emotions={newEmotionData}/>
     </div>
+          <PrognosisChart progonsis={[['Inconsistent Heart Rate','32'], ['Acne','14'],['Nearsightedness','4'],['Farsightedness','2'], ['Stress','1']]}/>
+    </>
   )
 }
 

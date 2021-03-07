@@ -22,6 +22,7 @@ const MainPageContainer = () => {
     fearful: 0,
     disgusted: 0
   });
+  const [recordings, setRecordings] = useState({});
 
   return (
     <div>
@@ -46,7 +47,7 @@ const MainPageContainer = () => {
             />
             <CameraPage  setNext={() => {
                 setClick('bullet');
-              }} data={data} setData={setData} setEmotions={setEmotions}/>
+              }} data={data} setData={setData} setEmotions={setEmotions} setRecordings={setRecordings}/>
           </ParentPage> 
         : click === 'bullet' ?
           <ParentPage>

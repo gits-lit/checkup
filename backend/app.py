@@ -30,16 +30,16 @@ def diagnose():
 def checkDisease():
    gender = request.json["gender"]
    year_of_birth = request.json["yearOfBirth"]
-   symptom_names = []
+   symptom_names = request.json["symptoms"]
    # symptom_names = request.json["symptoms"]
 
-   client = RecognitionClient(token=config.vize_key)
-   task, status = client.get_task(task_id=config.vize_task_id)
+   # client = RecognitionClient(token=config.vize_key)
+   # task, status = client.get_task(task_id=config.vize_task_id)
    # # you can send image in _file, _url or _base64 format
    # # the _file format is intenally converted to _base64 as rgb image
-   result = task.classify([{'_url': '__URL_PATH_TO_IMG__'}, {'_file': '__LOCAL_FILE_PATH__'}, {'_base64': '__BASE64_DATA__'}])
-   best_label = result['records'][0]['best_label']
-   symptom_names.append(best_label)
+   # result = task.classify([{'_url': '__URL_PATH_TO_IMG__'}, {'_file': '__LOCAL_FILE_PATH__'}, {'_base64': '__BASE64_DATA__'}])
+   # best_label = result['records'][0]['best_label']
+   # symptom_names.append(best_label)
 
    # gender = "male"
    # year_of_birth = "1984"

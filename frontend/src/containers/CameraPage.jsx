@@ -9,16 +9,12 @@ let currentRecorder = null;
 const CameraPage = (props) => {
   const [questionIndex, setQuestionIndex] = useState(1);
   const [timer, setTimer] = useState(0);
+  const [currentTranscript, setCurrentTranscript] = useState('hello');
   const [started, setStarted] = useState(false);
-  const [recordings, setRecordings] = useState({});
   const moveNext = async () => {
     if (questionIndex < 10) {
-      if (currentRecorder ) {
-        const audio = await currentRecorder.stop(questionIndex);
-        audio.play();
-        currentRecorder.start();
-      }
       setQuestionIndex(questionIndex + 1);
+      console.log(currentTranscript);
     }
     else {
       props.setNext();
@@ -27,11 +23,7 @@ const CameraPage = (props) => {
   }
   const moveBack = async () => {
     if (questionIndex > 1) {
-      if (currentRecorder ) {
-        const audio = await currentRecorder.stop(questionIndex);
-        audio.play();
-        currentRecorder.start();
-      }
+      console.log(currentTranscript);
       setQuestionIndex(questionIndex - 1);
     }
   }
@@ -108,7 +100,7 @@ const CameraPage = (props) => {
   return (
     <div>
       <Video started={started} data={props.data} setData={props.setData} setEmotions={props.setEmotions}/>
-      <SpeechDetector startTimer={() => {setStarted(true); setTimer(1);}} startRecording={startRecording}/>
+      <SpeechDetector setCurrentTranscript={setCurrentTranscript} startTimer={() => {setStarted(true); setTimer(1);}} startRecording={startRecording}/>
       <Questions questionIndex={questionIndex} totalQuestions={10} moveNext={moveNext} moveBack={moveBack}/>
       <Toolbar timer={timer} moveNext={moveNext} moveBack={moveBack}/>
     </div>
