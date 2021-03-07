@@ -68,7 +68,7 @@ def checkDisease():
       else:
          print("Symptom " + symptom + " not found!")
 
-   score = max(0, 100 * ((-4)/len(symptom_list) * (len(symptom_names) + red_flags) + 1))
+   score = max(0, 100 * ((-8)/len(symptom_list) * (len(symptom_names) + red_flags) + 1))
 
    diagnosis_url = "https://priaid-symptom-checker-v1.p.rapidapi.com/diagnosis"
    querystring = {"symptoms": str(symptom_ids), "gender": gender, "year_of_birth": year_of_birth, "language": "en-gb"}
@@ -97,7 +97,9 @@ def checkDisease():
 
 @app.route('/api/diagnose/checkMentalHealth', methods=["POST"])
 def checkMentalHealth():
-   pass
+   responses = request.json["responses"]
+   return make_response(jsonify({"score": str(100*(1-sum(responses)/len(responses)))}), 200)
+
 
 
 @app.route('/api/doctors/recommendDoctors', methods=["POST"])
