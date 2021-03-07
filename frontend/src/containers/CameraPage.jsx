@@ -31,7 +31,6 @@ const CameraPage = (props) => {
   }, [timer]);
 
   return (
-    /* Temporarily removed due to lag
     <div>
       <Video />
       <SpeechDetector />
@@ -43,6 +42,7 @@ const CameraPage = (props) => {
       <Questions questionIndex={questionIndex} totalQuestions={10} moveNext={moveNext} moveBack={moveBack}/>
       <Toolbar timer={timer} moveNext={moveNext} moveBack={moveBack}/>
     </div>
+    */
   )
 }
 
