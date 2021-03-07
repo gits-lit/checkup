@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-//import HeartRateGraph from '../components/HeartRateGraph';
+import HeartRateGraph from '../components/HeartRateGraph';
 import BarGraph from '../components/BarGraph';
 import ProgressGraph from '../components/ProgressGraph';
 import PrognosisChart from '../components/PrognosisChart';
@@ -63,6 +63,7 @@ const ResultPageContainer = (props) => {
         name="&#x1F4AA; Physical Score"
         percent='49'
         title="Physical Health"/>
+      <HeartRateGraph data={props.heartData} />
       <PrognosisChart progonsis={[['name1','70'],['name2','40'],['name3','30'],['name4','20'],['name5','15']]}/>
       <BarGraph emotions={newEmotionData}/>
     </div>
