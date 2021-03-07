@@ -90,7 +90,8 @@ const Video = () => {
               // Pull the image data from the canvas
               const imageData = ctx2.getImageData(foreheadCoords.x, foreheadCoords.y, foreheadCoords.width, foreheadCoords.height);
               ctx2.clearRect(0, 0, tempCanvas.width, tempCanvas.height);
-              thing.updateHeartRate(imageData.data);
+              // TODO: Move heart rate;
+              //thing.updateHeartRate(imageData.data);
               //console.log(thing.heartRate);
               
             }
