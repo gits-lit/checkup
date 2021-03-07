@@ -28,7 +28,7 @@ def diagnose():
 @app.route('/api/diagnose/checkDisease', methods=["POST"])
 def checkDisease():
    # gender = request.json["gender"]
-   # year_of_birth = request.json["year_of_birth"]
+   # year_of_birth = request.json["yearOfBirth"]
    # symptom_names = request.json["symptoms"]
 
    gender = "male"
