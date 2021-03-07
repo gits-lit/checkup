@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify, make_response
 from flask_cors import CORS
 from flask_socketio import SocketIO, emit
+from ximilar.client import RecognitionClient
 import requests
 import json
 import config  # config.py contains api keys
@@ -27,13 +28,22 @@ def diagnose():
 
 @app.route('/api/diagnose/checkDisease', methods=["POST"])
 def checkDisease():
-   # gender = request.json["gender"]
-   # year_of_birth = request.json["yearOfBirth"]
+   gender = request.json["gender"]
+   year_of_birth = request.json["yearOfBirth"]
+   symptom_names = []
    # symptom_names = request.json["symptoms"]
 
-   gender = "male"
-   year_of_birth = "1984"
-   symptom_names = ["Neck stiffness", "Fever"]  # ids [234,11]
+   client = RecognitionClient(token=config.vize_key)
+   task, status = client.get_task(task_id=config.vize_task_id)
+   # # you can send image in _file, _url or _base64 format
+   # # the _file format is intenally converted to _base64 as rgb image
+   result = task.classify([{'_url': '__URL_PATH_TO_IMG__'}, {'_file': '__LOCAL_FILE_PATH__'}, {'_base64': '__BASE64_DATA__'}])
+   best_label = result['records'][0]['best_label']
+   symptom_names.append(best_label)
+
+   # gender = "male"
+   # year_of_birth = "1984"
+   # symptom_names = ["Eye redness", "Eye pain", "Fever"] 
 
    symptom_list = {}
    gendered_symptom_list = {}
@@ -48,16 +58,22 @@ def checkDisease():
          gendered_symptom_list = json.load(f)
 
    symptom_ids = []
+   red_flags = []
 
    for symptom in symptom_names:
       if symptom in symptom_list:
          symptom_ids.append(symptom_list[symptom])
+         if gendered_symptom_list[symptom]["HasRedFlag"]:
+            red_flags.append(0)
+         else:
+            red_flags.append(1)
       else:
          print("Symptom " + symptom + " not found!")
 
+   score = 100 * (sum(red_flags) / len(red_flags))
+
    diagnosis_url = "https://priaid-symptom-checker-v1.p.rapidapi.com/diagnosis"
-   querystring = {"symptoms": str(
-      symptom_ids), "gender": gender, "year_of_birth": year_of_birth, "language": "en-gb"}
+   querystring = {"symptoms": str(symptom_ids), "gender": gender, "year_of_birth": year_of_birth, "language": "en-gb"}
    headers = {
       'x-rapidapi-key': config.symptom_checker_key,
       'x-rapidapi-host': "priaid-symptom-checker-v1.p.rapidapi.com"
@@ -78,9 +94,7 @@ def checkDisease():
 
       accuracies.append(item["Issue"]["Accuracy"])
 
-   score = str(100)  # do some shit with the red flags
-
-   return make_response(jsonify({"conditions": conditions, "score": score}), 200)
+   return make_response(jsonify({"conditions": conditions, "score": str(score)}), 200)
 
 
 @app.route('/api/diagnose/checkMentalHealth', methods=["POST"])
