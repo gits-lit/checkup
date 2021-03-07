@@ -7,7 +7,7 @@ const ProgressGraph = (props) => {
 
   return (
     <div className="progress-graph">
-      <div className="circle-dot"></div>
+      <div className="cc"></div>
       <h2 className="score-type">{props.name}</h2>
       <Progress
       type="circle"

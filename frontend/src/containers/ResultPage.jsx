@@ -1,5 +1,6 @@
 import React from 'react';
 import HeartRateGraph from '../components/HeartRateGraph';
+import BarGraph from '../components/BarGraph';
 import ProgressGraph from '../components/ProgressGraph';
 
 const ResultPageContainer = (props) => {
@@ -30,6 +31,7 @@ const ResultPageContainer = (props) => {
         percent='49'
         title="Physical Health"/>
       <HeartRateGraph data={props.heartData}/>
+      <BarGraph emotions={[['name1','318'],['name2','93'],['name3','43'],['name4','20'],['name5','15']]}/>
     </div>
   )
 }
