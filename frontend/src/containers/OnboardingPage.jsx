@@ -1,9 +1,10 @@
 import React from 'react';
+import BackgroundIcon from '../components/BackgroundIcon';
 
 const OnboardingPageContainer = () => {
   return (
     <div>
-      Hello World! Onboarding
+      <BackgroundIcon />
     </div>
   )
 }

@@ -2,6 +2,7 @@ import React, {useCallback, useEffect, useRef, useState} from 'react';
 import Webcam from "react-webcam";
 
 import * as faceapi from 'face-api.js';
+import * as utils from './utils.js';
 
 import './style.scss';
 
@@ -10,6 +11,8 @@ const videoConstraints = {
   height: 720,
   facingMode: "user"
 };
+
+const thing = new utils.HeartRateFinder(256);
 
 const Video = () => {
   const webcamRef = useRef(null);
@@ -39,12 +42,13 @@ const Video = () => {
         const video = document.getElementsByTagName('video')[0];
   
         if (video && canvas && tempCanvas && image && webcamRef.current) {
-          const detections = await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions())//.withFaceExpressions();
+          const detections = await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions());//.withFaceExpressions();
           //const resizedDetections = faceapi.resizeResults(detections, displaySize);
           //console.log('drawing');
           //console.log(resizedDetections);
           if (detections) {
             canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+            const foreheadCoords = utils.getForeheadCoords(detections.box.x, detections.box.y, detections.box.width, detections.box.height);
             faceapi.draw.drawDetections(canvas, detections);
 
             // Set the src of image element 
@@ -54,27 +58,29 @@ const Video = () => {
               // Throw the image element on the canvas
               const ctx = tempCanvas.getContext('2d');
               ctx.drawImage(image, 0, 0, 1280, 720);
-              console.log(tempCanvas);
+              //console.log(tempCanvas);
 
               // Pull the image data from the canvas
-              const imageData = ctx.getImageData(0, 0, 1280, 720);
+              const imageData = ctx.getImageData(foreheadCoords.x, foreheadCoords.y, foreheadCoords.width, foreheadCoords.height);
               ctx.clearRect(0, 0, tempCanvas.width, tempCanvas.height);
-              console.log('HERE IS THE DATA KYLE');
+              thing.updateHeartRate(imageData.data);
+              //console.log('HERE IS THE DATA KYLE');
               // BELOW IS THE OVERALL IMAGE DATA
-              console.log(imageData.data);
+              //console.log(imageData.data);
               // HERE ARE THE DIMENSIONS OF THE BOX PLEASE BE CAREFUL CANVAS LOCATIONS (I think canvas 0,0 is top right but you'll need to check)
-              console.log('x is ' + detections.box.x);
-              console.log('y is ' + detections.box.y);
-              console.log('width is ' + detections.box.width);
-              console.log('height is ' +detections.box.height);
+              //console.log('x is ' + detections.box.x);
+              //console.log('y is ' + detections.box.y);
+              //console.log('width is ' + detections.box.width);
+              //console.log('height is ' + detections.box.height);
               // Every 4 values is r, g, b, a repeated
               // Dimensions is width 1280 height 720
+              
             }
           }
           //faceapi.draw.drawFaceExpressions(canvas, detections);
         }
         // Change this for time between screenshots (in milliseconds)
-      }, 5000);
+      }, 1000/60);
    })
   }, []);
 
