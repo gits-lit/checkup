@@ -17,7 +17,7 @@
     "ndarray-linspace": "^1.0.2",
     "ndarray-ops": "^1.2.2",
     "opus-media-recorder": "^0.8.0",
-    "react": "^16.6.3",
+    "react": "^17.0.1",
     "react-charts": "^2.0.0-beta.7",
     "react-dom": "^17.0.1",
     "react-mapbox-gl": "^5.1.1",
