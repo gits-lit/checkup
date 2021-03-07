@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 
+import LocationPage from './LocationPage'
 import NavBar from '../components/NavBar';
 import ParentPage from '../components/ParentPage';
+import ResultPage from './ResultPage'
 import SideBar from '../components/SideBar';
 import CameraPage from './CameraPage';
 
@@ -44,7 +46,7 @@ const MainPageContainer = () => {
                 setClick('location');
               }}
             />
-            <div>2</div>
+            <ResultPage />
           </ParentPage> 
         : click === 'location' ?
           <ParentPage>
@@ -55,7 +57,7 @@ const MainPageContainer = () => {
               setBack={() => {
                 setClick('bullet');}}
             />
-            <div>3</div>
+            <LocationPage />
           </ParentPage> :
         <></>
       }

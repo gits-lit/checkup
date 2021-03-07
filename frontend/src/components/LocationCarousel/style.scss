@@ -1,0 +1,96 @@
+.ant-carousel {
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0px 9px 27.09px rgba(176, 190, 197, 0.25), 0px 7px 5.64px rgba(176, 190, 197, 0.25);
+  min-width: 300px;
+  min-height: 100px;
+  height: 45vh;
+  width: 30vw;
+  
+  .slick-arrow {
+    z-index: 1000;
+  }
+
+  .slick-next {
+    padding-right: 45px !important;
+    margin-top: -50px;
+    right: 12px !important;
+    transition: 0.2s;
+    width: 30px;
+    &:before {
+      content: url(../../assets/next-button.svg) !important;
+    }
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+  
+  .slick-prev {
+    left: 12px !important;
+    margin-top: -50px;
+    transition: 0.2s;
+    width: 30px;
+    &:before {
+      content: url(../../assets/back-button.svg) !important;
+    }
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+  
+}
+
+.location-carousel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+
+  .address {
+    font-weight: 400;
+  }
+
+  .index {
+    font-weight: 550;
+    margin: 15px 0;
+  }
+  
+  .location-image {
+    margin: 0 auto;
+    border-radius: 10px;
+    object-fit: cover;
+    width: 45%;
+  }
+
+  h1 {
+    font-size: 1.5em;
+    margin: 15px auto 0;
+    text-align: center;
+    width: 70%
+  }
+  
+  h2 {
+    font-size: .8em;
+    text-align: center;
+  }
+
+  h3 {
+    text-align: center;
+    font-size: 0.8em;
+  }
+
+  .information {
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
+    margin-top: 10px;
+    width: 100%;
+    
+    .phone, .web {
+      margin-right: 10px;
+    }
+    h3 {
+      margin: auto 20px auto 0;
+    }
+  }
+}

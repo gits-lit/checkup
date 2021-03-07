@@ -4,6 +4,7 @@
   height: 15vh;
   width: 100%;
   z-index: 50000;
+  position: relative;
 
   .back-button {
     background-color: #D9BCFF;
@@ -25,6 +26,8 @@
 
   .settings {
     display: flex;
+    position: absolute;
+    right: 5px;
 
     a {
       margin: auto;
@@ -100,6 +103,14 @@
     &:hover {
       transform: scale(1.1);
     }
+  }
+  .line {
+    position: absolute;
+    bottom: 0;
+    width: 96%;
+    left: 0;
+    height: 1px;
+    background-color: #C8C8C8;
   }
 }
 

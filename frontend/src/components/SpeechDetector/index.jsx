@@ -61,7 +61,7 @@ const SpeechDetector = () => {
   const { transcript, resetTranscript } = useSpeechRecognition();
 
   useEffect(() => {
-    if (transcript.length > 50) {
+    if (transcript.length > 130) {
       resetTranscript();
     }
   }, [transcript])
