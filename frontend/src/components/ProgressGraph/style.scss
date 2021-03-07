@@ -1,0 +1,50 @@
+.progress-graph {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0px 9px 27.09px rgba(176, 190, 197, 0.25), 0px 7px 5.64px rgba(176, 190, 197, 0.25);
+  height: 300px;
+  position: relative;
+  width: 250px;
+  text-align: center;
+
+  .ant-progress-circle-gradient {
+    height: 150px !important;
+    margin: auto;
+    width: 150px !important;
+
+  }
+  .ant-progress-text {
+    font-weight: 700;
+  }
+  
+  .circle-dot {
+    background-color: white;
+    border-radius: 50%;
+    height: 10px;
+    position: absolute;
+    top: 75px;
+    width: 10px;
+    z-index: 1;
+    left: 120px;
+  }
+
+  .description {
+    color: rgba(134, 134, 134, 1);
+    font-size: 0.8em;
+    margin: 0 auto 10px;
+    text-align: center;
+  }
+
+  .score-type {
+    font-weight: 400;
+    padding: 20px 0 5px 15px;
+    text-align: left;
+  }
+  .title {
+    font-size: 1.5em;
+    font-weight: 600;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+}
