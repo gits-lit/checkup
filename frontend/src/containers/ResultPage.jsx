@@ -29,7 +29,7 @@ const ResultPageContainer = () => {
         name="&#x1F4AA; Physical Score"
         percent='49'
         title="Physical Health"/>
-      <HeartRateGraph />
+      <HeartRateGraph emotions={[['name1','318'],['name2','93'],['name3','43'],['name4','20'],['name5','15']]}/>
     </div>
   )
 }
