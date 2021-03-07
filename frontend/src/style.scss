@@ -4,3 +4,7 @@ body {
   margin: 0;
   font-family: Montserrat;
 }
+html, body {
+  max-width: 100%;
+  overflow: hidden;
+}
