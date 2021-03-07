@@ -1,0 +1,96 @@
+.nav-bar {
+  align-items: center;
+  border: 1px solid red;
+  display: flex;
+  height: 15vh;
+  width: 100%;
+
+  .back-button {
+    background-color: #D9BCFF;
+    border-radius: 13px;
+    padding: 14px;
+    margin-left: 10px;
+    height: 8vh;
+    max-height: 50px;
+    max-width: 50px;
+    width: 8vh;
+  }
+
+  .settings {
+    display: flex;
+
+    a {
+      margin: auto;
+    }
+
+    h1 {
+      font-size: 1em;
+      font-weight: 400;
+      margin: auto 20px auto 0;
+    }
+
+    .restart {
+      font-weight: 500;
+      margin-left: 10px;
+      display: none;
+    }
+
+    .restart-button {
+      background-color: black;
+      border-radius: 13px;
+      padding: 14px;
+      height: 8vh;
+      max-height: 50px;
+      max-width: 50px;
+      width: 8vh;
+    }
+  }
+
+  .step-note {
+    width: 55vw;
+    margin: 0;
+    display: none;
+    flex-direction: column;
+
+    h1 {
+      font-size: 1.5em;
+      font-weight: 600;
+      line-height: 20px;
+    }
+
+    h2 {
+      color: #868686;
+      font-size: 1em;
+      line-height: 10px;
+    }
+  }
+
+  .step-number {
+    background-color: #AE72FF;
+    border-radius: 13px;
+    color: white;
+    font-size: 2em;
+    height: 8vh;
+    line-height: 8vh;
+    margin: 0 20px 0 15px;
+    max-height: 50px;
+    max-width: 50px;
+    text-align: center;
+    width: 8vh;
+  }
+}
+
+@media (min-width: 769px) {
+  .nav-bar {
+    .step-note {
+      display: flex !important;
+    }
+    .settings {
+      font-size: 1.3em;
+      .restart {
+        display: flex !important;
+      }
+    }
+
+  }
+}
