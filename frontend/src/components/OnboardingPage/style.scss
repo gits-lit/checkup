@@ -1,0 +1,65 @@
+.OnboardingPage {
+  z-index: -2;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  .logo {
+    position: absolute;
+    top: 4%;
+    z-index: 1;
+  }
+
+
+  .background {
+    position: absolute;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    -webkit-user-select: none;  
+    -moz-user-select: none;    
+    -ms-user-select: none;      
+    user-select: none;
+  }
+
+  .coneglow {
+    position: absolute;
+    top: 10%;
+    right: 0;
+    height: 300px;
+    animation: actions 3s infinite alternate;
+  }
+
+  @keyframes actions {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translate(0px, 15px);
+    }
+  }
+
+  .blueglow {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 300px;
+    animation: action 3s infinite alternate;
+  }
+
+  @keyframes action {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translate(-5px, 30px);
+    }
+  }
+}
+
+img {
+  -webkit-user-select: none;  
+  -moz-user-select: none;    
+  -ms-user-select: none;      
+  user-select: none;
+}

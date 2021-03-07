@@ -1,11 +1,27 @@
 import React, { useState } from 'react';
+import { useHistory } from "react-router-dom";
 
+import LocationPage from './LocationPage'
+import NavBar from '../components/NavBar';
 import ParentPage from '../components/ParentPage';
+import ResultPage from './ResultPage'
 import SideBar from '../components/SideBar';
+import CameraPage from './CameraPage';
+import ResultHeader from '../components/ResultHeader';
 
 const MainPageContainer = () => {
-
-  const [click, setClick] = useState('steps');
+  const history = useHistory();
+  const [click, setClick] = useState('camera');
+  const [data, setData] = useState([]);
+  const [emotions, setEmotions] = useState({
+    angry: 0,
+    neutral: 0,
+    happy: 0,
+    surprised: 0,
+    sad: 0,
+    fearful: 0,
+    disgusted: 0
+  });
 
   return (
     <div>
@@ -17,15 +33,46 @@ const MainPageContainer = () => {
       {
         click === 'camera' ?
           <ParentPage>
-            <div>1</div>
+            <NavBar click={click}
+              currentStep='Step Two: Answer Questions while we analyze your video'
+              nextStep='Step Three: Gather your results and look at our findings'
+              number='2' 
+              setBack={() => {
+                history.push('/onboarding');
+              }}
+              setNext={() => {
+                setClick('bullet');
+              }}
+            />
+            <CameraPage  setNext={() => {
+                setClick('bullet');
+              }} data={data} setData={setData} setEmotions={setEmotions}/>
           </ParentPage> 
         : click === 'bullet' ?
           <ParentPage>
-            <div>2</div>
+            <NavBar click={click}
+              currentStep='Step Three: Gather your results and look at our findings'
+              nextStep='Step Four: Gather your results and look at our findings'
+              number='3' 
+              setBack={() => {
+                setClick('camera');}}
+              setNext={() => {
+                setClick('location');
+              }}
+            />
+            <ResultHeader/>
+            <ResultPage emotionData={emotions} heartData={data}/>
           </ParentPage> 
         : click === 'location' ?
           <ParentPage>
-            <div>3</div>
+            <NavBar click={click}
+              currentStep='Step Four: Find local doctors and share results'
+              nextStep='You are done! Thank your trying out the Checkup demo'
+              number='4'
+              setBack={() => {
+                setClick('bullet');}}
+            />
+            <LocationPage />
           </ParentPage> :
         <></>
       }

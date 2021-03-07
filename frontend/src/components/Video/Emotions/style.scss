@@ -1,0 +1,28 @@
+.emotion-detector {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  z-index: 600;
+  width: 115px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(14.6695px);
+  /* Note: backdrop-filter has minimal browser support */
+  
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: white;
+  img {
+    display: inline-block !important;
+    position: initial !important;
+    margin-right: 5px;
+    height: 20px;
+    width: 20px;
+    background-color: #AE72FF;
+    box-shadow:inset 0px 0px 0px 4px white;
+    border-radius: 100%;
+  }
+}

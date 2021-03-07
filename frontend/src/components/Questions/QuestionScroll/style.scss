@@ -1,0 +1,20 @@
+.question-scroll {
+  height: calc(100% - 200px);
+  overflow: scroll;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  position: relative;
+  .question-piece {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #DDDDDD;
+    margin: 15px 0;
+    &.bold {
+      color: #333333;
+    }
+  }
+}
+
+.question-scroll::-webkit-scrollbar {
+  display: none;
+}
