@@ -1,35 +1,61 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat+Alternates:300,300i,400,400i,500,500i,700,700i,900,900i');
 
 body {
-  background-color: #FDF8F4;
+  background-color: #fdf8f4;
 }
 
+.righthome {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 100%;
+  z-index: -1;
+}
+
+
+.blueglow {
+  position: absolute;
+  bottom: 0;
+  left: -1%;
+  animation: action3 3s infinite alternate;
+}
+
+@keyframes action3 {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translate(-15px, 0px);
+  }
+}
+
+
+
 .home-page {
+  overflow: hidden;
   .content {
-    padding: 25vh 0 0;
+    padding: 15vh 0 0;
     padding-left: 7vw;
-    max-width: 769px;
+    max-width: 800px;
     width: 90vw;
-    
+
     h1 {
-      background-image: linear-gradient(269.88deg, #C657ED 20.52%, #309BF1 62.34%, #5FDAE2 106.87%);
+      font-size: 72px;
+      background-image: linear-gradient(
+        269.88deg,
+        #c657ed 20.52%,
+        #309bf1 62.34%,
+        #5fdae2 106.87%
+      );
       font-weight: 700;
-      font-size: 2.5rem;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      width: 400px;
     }
 
     p {
       font-size: 1.2em;
-      font-weight: 300;
-      max-width: 100%;
+      font-weight: 400;
       padding: 2.5vh 0vh;
-      width: 450px;
-
-      .bold {
-        font-weight: 600;
-      }
     }
   }
 
@@ -39,21 +65,22 @@ body {
     width: 100%;
 
     .begin {
-      background-color: #AE72FF;
+      background-color: #ae72ff;
       border: none !important;
       border-radius: 10px;
-      color: #FDF8F4;
+      color: #fdf8f4;
       font-size: 18px;
       font-weight: 500;
       height: 50px;
       margin-right: 30px;
       width: 170px;
+      box-shadow: 0px 3px 32px rgba(174, 114, 255, 0.5);
     }
     .view {
-      background-color: #FEEBDC;
+      background-color: #feebdc;
       border: none !important;
       border-radius: 10px;
-      color: #AE72FF;
+      color: #ae72ff;
       font-weight: 500;
       font-size: 18px;
       height: 50px;
@@ -65,18 +92,24 @@ body {
   .home-nav {
     align-items: flex-start;
     display: flex;
-    height: 5vh;
     justify-content: space-between;
+    align-items: center;
     width: 100vw;
+    padding: 10px 0px;
 
     .logo {
       padding: 10px 0 10px 7vw;
+    }
+    .demo-button {
+      height: 44px;
+      padding: 0px 100px;
     }
 
     .links {
       display: flex;
       font-family: Montserrat Alternates;
-      .demo, h4 {
+      .demo,
+      h4 {
         display: none;
       }
 
@@ -85,19 +118,12 @@ body {
         position: relative;
         top: -5px;
         width: 100px;
-
-        .demo-button {
-          height: 100%;
-          left: 0;
-          position: absolute;
-          width: 100%;
-        }
       }
     }
 
     .demo {
-      background: #FDF8F4;
-      //border: 3px solid; 
+      background: #fdf8f4;
+      //border: 3px solid;
       //border-image: linear-gradient(228.76deg, #678DF0 12.69%, #B28BF1 73.36%);
       border-radius: 15px;
       font-weight: 300;
@@ -125,7 +151,8 @@ body {
   .home-page {
     .content {
       h1 {
-        font-size: 3.5em !important;
+        font-size: 5em !important;
+        margin-bottom: 0px;
       }
       h2 {
         font-size: 1.3em;

@@ -2,7 +2,7 @@ import './style.scss';
 import OnboardModal from '../../components/OnboardModal';
 
 import background from '../../assets/onboardingbackground.png';
-import blueglow from '../../assets/blueglow.png';
+import blueglow2 from '../../assets/blueglow2.png';
 import coneglow from '../../assets/coneglow.png';
 import logo from '../../assets/logo.svg';
 
@@ -12,7 +12,7 @@ const OnboardingBg = () => {
       <OnboardModal />
       <img src={logo} alt="logo" className="logo" />
       <img src={background} alt="background" className="background" />
-      <img src={blueglow} alt="background" className="blueglow" />
+      <img src={blueglow2} alt="background" className="blueglow" />
       <img src={coneglow} alt="background" className="coneglow" />
     </div>
   );

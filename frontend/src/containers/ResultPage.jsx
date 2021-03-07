@@ -24,7 +24,7 @@ const ResultPageContainer = (props) => {
     setTimeout(() => {setMentalHealthScore(89);
     setOverallHealthScore(90);
     setPhysicalHealthScore(91);
-    }, 1000);
+    }, 2000);
   }, [])
 
   const [newEmotionData, setEmotion] = useState([['name1','318'],['name2','93'],['name3','43'],['name4','20'],['name5','15']]);
