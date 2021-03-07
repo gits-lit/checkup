@@ -15,7 +15,9 @@ const videoConstraints = {
 
 const thing = new utils.HeartRateFinder(256);
 
-let interval = null;
+let interval, interval2 = null;
+//let data = [];
+let heartRate = 70;
 
 const Video = () => {
   const webcamRef = useRef(null);
@@ -23,11 +25,8 @@ const Video = () => {
   const tempCanvasRef = useRef(null);
   const imageRef = useRef(null);
 
-  const [dataX, setDataX] = useState(0);
-  const [rawData, setRawData] = useState([]);
-  const [processedData, setProcessedData] = useState([]);
+  const [data, setData] = useState([]);
   const fps = 30;
-  const num_data_points = 10;
 
   const capture = useCallback(
     async () => {
@@ -42,6 +41,15 @@ const Video = () => {
       faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
       faceapi.nets.faceExpressionNet.loadFromUri('/models')
     ]).then(() => {
+      interval2 = setInterval(() => {
+        heartRate = thing.heartRate || 70;
+        setData( data => {
+          const newData = [...data];
+          newData.push(heartRate);
+          return newData;
+        })
+      }, 1000)
+
       interval = setInterval(async () => {
         //capture();
         const canvas = canvasRef.current;
@@ -98,35 +106,6 @@ const Video = () => {
               ctx2.clearRect(0, 0, tempCanvas.width, tempCanvas.height);
               // TODO: Move heart rate;
               thing.updateHeartRate(imageData.data);
-
-              const newData = [...rawData];
-              console.log('hi there');
-              if (thing.heartRate === undefined) newData.push(rawData[rawData.length-1]);
-              else newData.push(thing.heartRate);
-                console.log('fuck');
-                console.log(rawData);
-                //console.log(newData);
-                
-              if (rawData.length > fps) {
-                let average = rawData.reduce((a,b) => a+b) / newData.length;
-                const newProcessedData= [...processedData];
-                newProcessedData.push({ x: dataX, y: average });
-                setRawData([]);
-                setDataX(dataX + 1);
-
-                if (newProcessedData.length > num_data_points) {
-                    newProcessedData.shift();
-                }
-                console.log('ay we made it');
-                console.log(newProcessedData);
-                setProcessedData(newProcessedData);
-              }
-                else {
-                    console.log('aganugbafboia');
-                    console.log(newData);
-                    setRawData(newData);
-                    console.log('settingafafaf');
-                }
             }
           }
           //faceapi.draw.drawFaceExpressions(canvas, detections);
@@ -134,6 +113,7 @@ const Video = () => {
         // Change this for time between screenshots (in milliseconds)
         return () => {
           clearInterval(interval);
+          clearInterval(interval2);
         }
       }, 1000/fps);
    })
@@ -150,7 +130,7 @@ const Video = () => {
         width={1280}
         videoConstraints={videoConstraints}
       />
-      <Chart plot={processedData}/>
+      <Chart plot={data}/>
       <canvas ref={canvasRef} id="primary-canvas" height={720} width={1280}/>
       <canvas ref={tempCanvasRef} id="secondary-canvas" height={720} width={1280}/>
       <img ref={imageRef} />
