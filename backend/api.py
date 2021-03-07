@@ -24,6 +24,7 @@ def test_get():
 def diagnose():
    pass
 
+
 @app.route('/api/diagnose/checkDisease', methods=["POST"])
 def checkDisease():
    # gender = request.json["gender"]
@@ -35,8 +36,16 @@ def checkDisease():
    symptom_names = ["Neck stiffness", "Fever"]  # ids [234,11]
 
    symptom_list = {}
+   gendered_symptom_list = {}
    with open("symptom_list.json") as f:
       symptom_list = json.load(f)
+
+   if (gender == "male"):
+      with open("symptoms_man.json") as f:
+         gendered_symptom_list = json.load(f)
+   else:
+      with open("symptoms_woman.json") as f:
+         gendered_symptom_list = json.load(f)
 
    symptom_ids = []
 
@@ -69,7 +78,7 @@ def checkDisease():
 
       accuracies.append(item["Issue"]["Accuracy"])
 
-   score = str(100) # do some shit with the red flags 
+   score = str(100)  # do some shit with the red flags
 
    return make_response(jsonify({"conditions": conditions, "score": score}), 200)
 
@@ -81,4 +90,65 @@ def checkMentalHealth():
 
 @app.route('/api/doctors/recommendDoctors', methods=["POST"])
 def recommendDoctors():
-   pass
+   def formatPlaceType(placeType):
+      place_tokens = placeType.split("_")
+      place_tokens[0] = place_tokens[0].capitalize()
+      return " ".join(place_tokens)
+
+   def getField(obj, fieldName, subfieldName=None, subsubfieldName=None):
+      if (fieldName in obj):
+         if subfieldName and subsubfieldName:
+            return obj[fieldName][subfieldName][subsubfieldName]
+         return obj[fieldName]
+      return ""
+
+   # diseases = request.json["diseases"]
+   # zipcode = request.json["zipcode"]
+   diseases = ["Common cold","Influenza","Meningitis"]
+   zipcode = 12345
+   location = "32.7157,-117.1611"
+   place_search_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
+   place_details_url = "https://maps.googleapis.com/maps/api/place/details/json"
+   doctors = []
+
+   i = 0
+   for disease in diseases:
+      i += 1
+      # only want top 5
+      if (i > 5):
+         break
+
+      # API call to search for a nearby doctor
+      search_target = disease
+      querystring = {"key": config.places_key, "location": location, "radius": "1500", "keyword": search_target, "type": "doctor", "fields": "formatted_address", "language": "en-gb"}
+      findplace_response = requests.request("GET", place_search_url, params=querystring)
+      findplace_data = findplace_response.json()
+      found_ids = []
+
+      if (findplace_data["status"] == "OK"):
+         for place in findplace_data["results"]:
+            findplace_id = place["place_id"]
+
+            # API call to get details for queried place
+            querystring = {"key": config.places_key, "place_id": findplace_id,
+                           "language": "en-gb", "fields": "formatted_address,formatted_phone_number,name,geometry"}
+            finddetails_response = requests.request("GET", place_details_url, params=querystring)
+            finddetails_data = findplace_response.json()
+
+            for place_details in finddetails_data["results"]:
+               if (getField(place_details, "place_id") not in found_ids):
+                  # doctor object
+                  doctor = {}
+                  doctor["name"]         = getField(place_details, "name")
+                  doctor["occupation"]   = formatPlaceType(place_details["types"][0])
+                  doctor["lat"]          = getField(place_details,"geometry","location","lat")
+                  doctor["long"]         = getField(place_details,"geometry","location","lng")
+                  doctor["address"]      = getField(place,"vicinity")
+                  doctor["phone-number"] = getField(place_details,"formatted_phone_number")
+                  # doctor["office-hours"] =
+                  doctors.append(doctor)
+                  found_ids.append(getField(place_details, "place_id"))
+      else:
+         print("Got status " + findplace_data["status"])
+
+   return make_response(jsonify({"doctors": doctors}), 200)
