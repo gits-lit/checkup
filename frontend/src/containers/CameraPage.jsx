@@ -5,14 +5,15 @@ import SpeechDetector from '../components/SpeechDetector';
 
 const CameraPage = () => {
   return (
-    /* Temporarily removed due to lag
     <div>
       <Video />
       <SpeechDetector />
-    </div>*/
+    </div>
+    /*
     <div>
       <SpeechDetector />
     </div>
+    */
   )
 }
 

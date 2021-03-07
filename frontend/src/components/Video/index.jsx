@@ -1,4 +1,5 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
+import Chart from './Chart';
 import Webcam from "react-webcam";
 
 import * as faceapi from 'face-api.js';
@@ -22,6 +23,12 @@ const Video = () => {
   const tempCanvasRef = useRef(null);
   const imageRef = useRef(null);
 
+  const [dataX, setDataX] = useState(0);
+  const [rawData, setRawData] = useState([]);
+  const [processedData, setProcessedData] = useState([]);
+  const fps = 30;
+  const num_data_points = 10;
+
   const capture = useCallback(
     async () => {
     },
@@ -42,7 +49,6 @@ const Video = () => {
         const image = imageRef.current;
         //const displaySize = { width: 1280, height: 720 }
         const video = document.getElementsByTagName('video')[0];
-  
         if (video && canvas && tempCanvas && image && webcamRef.current) {
           const detections = await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions());//.withFaceExpressions();
           
@@ -91,9 +97,36 @@ const Video = () => {
               const imageData = ctx2.getImageData(foreheadCoords.x, foreheadCoords.y, foreheadCoords.width, foreheadCoords.height);
               ctx2.clearRect(0, 0, tempCanvas.width, tempCanvas.height);
               // TODO: Move heart rate;
-              //thing.updateHeartRate(imageData.data);
-              //console.log(thing.heartRate);
-              
+              thing.updateHeartRate(imageData.data);
+
+              const newData = [...rawData];
+              console.log('hi there');
+              if (thing.heartRate === undefined) newData.push(rawData[rawData.length-1]);
+              else newData.push(thing.heartRate);
+                console.log('fuck');
+                console.log(rawData);
+                //console.log(newData);
+                
+              if (rawData.length > fps) {
+                let average = rawData.reduce((a,b) => a+b) / newData.length;
+                const newProcessedData= [...processedData];
+                newProcessedData.push({ x: dataX, y: average });
+                setRawData([]);
+                setDataX(dataX + 1);
+
+                if (newProcessedData.length > num_data_points) {
+                    newProcessedData.shift();
+                }
+                console.log('ay we made it');
+                console.log(newProcessedData);
+                setProcessedData(newProcessedData);
+              }
+                else {
+                    console.log('aganugbafboia');
+                    console.log(newData);
+                    setRawData(newData);
+                    console.log('settingafafaf');
+                }
             }
           }
           //faceapi.draw.drawFaceExpressions(canvas, detections);
@@ -102,7 +135,7 @@ const Video = () => {
         return () => {
           clearInterval(interval);
         }
-      }, 1000/60);
+      }, 1000/fps);
    })
   }, []);
 
@@ -117,6 +150,7 @@ const Video = () => {
         width={1280}
         videoConstraints={videoConstraints}
       />
+      <Chart plot={processedData}/>
       <canvas ref={canvasRef} id="primary-canvas" height={720} width={1280}/>
       <canvas ref={tempCanvasRef} id="secondary-canvas" height={720} width={1280}/>
       <img ref={imageRef} />
