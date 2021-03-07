@@ -1,10 +1,13 @@
 import React from 'react';
+
 import HeartRateGraph from '../components/HeartRateGraph';
 import ProgressGraph from '../components/ProgressGraph';
+import ResultHeader from '../components/ResultHeader';
 
 const ResultPageContainer = () => {
   return (
     <div>
+      <ResultHeader/>
       <ProgressGraph color={{
         '0%': '#A643F4',
         '100%': 'rgba(249, 89, 166, 0.9)',
