@@ -17,27 +17,41 @@ const SideBar = (props) => {
         <img src={heartbeat} alt="logo" className="heartbeat" />
       </NavLink>
       <div className="tabs">
-        <div className={props.click === 'steps' ? 'tab selected':'tab'} onClick={() => {
-          props.setClick('steps');
-        }}>
-          <div className="background"></div>
-          <img src={steps} alt="logo" className="steps" />
-        </div>
-        <div className={props.click === 'camera' ? 'tab selected':'tab'} onClick={() => {
-          props.setClick('camera');
-        }}>
+        <NavLink to="/onboarding">
+          <div
+            className={props.click === 'steps' ? 'tab selected' : 'tab'}
+            onClick={() => {
+              props.setClick('steps');
+            }}
+          >
+            <div className="background"></div>
+            <img src={steps} alt="logo" className="steps" />
+          </div>
+        </NavLink>
+        <div
+          className={props.click === 'camera' ? 'tab selected' : 'tab'}
+          onClick={() => {
+            props.setClick('camera');
+          }}
+        >
           <div className="background"></div>
           <img src={camera} alt="logo" className="camera" />
         </div>
-        <div className={props.click === 'bullet' ? 'tab selected':'tab'} onClick={() => {
-          props.setClick('bullet');
-        }}>
+        <div
+          className={props.click === 'bullet' ? 'tab selected' : 'tab'}
+          onClick={() => {
+            props.setClick('bullet');
+          }}
+        >
           <div className="background"></div>
           <img src={bullet} alt="logo" className="bullet" />
         </div>
-        <div className={props.click === 'location' ? 'tab selected':'tab'} onClick={() => {
-          props.setClick('location');
-        }}>
+        <div
+          className={props.click === 'location' ? 'tab selected' : 'tab'}
+          onClick={() => {
+            props.setClick('location');
+          }}
+        >
           <div className="background"></div>
           <img src={location} alt="logo" className="location" />
         </div>
@@ -46,7 +60,7 @@ const SideBar = (props) => {
         <img src={gear} alt="logo" />
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default SideBar;

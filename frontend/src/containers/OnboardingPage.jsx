@@ -1,11 +1,10 @@
-import React from 'react';
-import BackgroundIcon from '../components/BackgroundIcon';
+import OnboardingPage from '../components/OnboardingPage';
 
 const OnboardingPageContainer = () => {
   return (
-    <div>
-      <BackgroundIcon />
-    </div>
+    <>
+      <OnboardingPage />
+    </>
   )
 }
 

@@ -1,0 +1,100 @@
+.OnboardModal {
+  height: 550px;
+  width: 420px;
+  top: 20vh;
+  position: absolute;
+  z-index: 10;
+  background: rgba(253, 248, 244, 0.3);
+  border: 1px solid #ffffff;
+  box-sizing: border-box;
+  backdrop-filter: blur(12px);
+  border-radius: 40px;
+  padding: 30px 20px;
+
+
+
+  .model-item {
+    display: flex !important;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    .graphics3 {
+      height: 170px;
+      width: auto;
+      margin: 0px 0px 20px 0px;
+    }
+
+    .graphics2 {
+      height: 185px;
+      width: auto;
+    }
+
+    img {
+      width: 50%;
+    }
+
+    p {
+      text-align: center;
+      margin-bottom: 20px;
+      font-weight: 500;
+      line-height: 20px;
+      font-size: 16px;
+      width: 95%;
+      color: rgba(51, 51, 51, 0.75);
+    }
+
+    h1 {
+      font-size: 24px;
+      font-weight: 600;
+      color: rgb(0, 0, 0, .7);
+    }
+  }
+
+  .modalcontainer {
+    display: flex;
+    justify-content: center;
+
+    h1 {
+      font-size: 31px;
+      font-weight: 600;
+      color: rgb(0, 0, 0, .8);
+    }
+  }
+
+  .button-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 28px;
+    align-items: center;
+    .next {
+      background-color: transparent;
+      width: 105px;
+      height: 40px;
+      font-family: Montserrat;
+      font-weight: 500;
+      font-size: 18px;
+      border: 2px solid white;
+
+      border-radius: 20px;
+    }
+
+    .back {
+      background-color: transparent;
+      height: 40px;
+      font-family: Montserrat;
+      font-weight: 400;
+      font-size: 16px;
+      border: none;
+      border-radius: 50px;
+      color: rgba(124, 124, 124, 0.75);
+    }
+    .back:hover {
+      color: #AE72FF i !important;
+    }
+  }
+}
+
+.ant-carousel .slick-dots-bottom {
+  margin-bottom: -10px;
+}
