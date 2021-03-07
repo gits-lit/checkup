@@ -1,5 +1,6 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import Chart from './Chart';
+import Emotions from './Emotions';
 import Webcam from "react-webcam";
 
 import * as faceapi from 'face-api.js';
@@ -19,13 +20,23 @@ let interval, interval2 = null;
 //let data = [];
 let heartRate = 70;
 
-const Video = () => {
+const Video = (props) => {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
   const tempCanvasRef = useRef(null);
   const imageRef = useRef(null);
 
   const [data, setData] = useState([]);
+  const [emotion, setCurrentEmotion] = useState('neutral');
+  const [emotions, setEmotions] = useState({
+    angry: 0,
+    neutral: 0,
+    happy: 0,
+    surprised: 0,
+    sad: 0,
+    fearful: 0,
+    disgusted: 0
+  });
   const fps = 30;
 
   const capture = useCallback(
@@ -41,8 +52,32 @@ const Video = () => {
       faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
       faceapi.nets.faceExpressionNet.loadFromUri('/models')
     ]).then(() => {
-      interval2 = setInterval(() => {
+      interval2 = setInterval(async () => {
         heartRate = thing.heartRate || 70;
+        const video = document.getElementsByTagName('video')[0];
+        if (video) {
+          const detections2 = await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions()).withFaceExpressions();
+          if (detections2 && detections2.expressions) {
+            let mood = 'angry';
+            let max = 0;
+            Object.keys(detections2.expressions).forEach(key => {
+              if (detections2.expressions[key] > max) {
+                max = detections2.expressions[key];
+                mood = key;
+              }
+            });
+            console.log(mood);
+            console.log(max);
+            setEmotions(emotions => {
+              const newEmotions = {...emotions};
+              if (mood in newEmotions) {
+                newEmotions[mood] += 1
+              }
+              return newEmotions;
+            })
+            setCurrentEmotion(emotion => mood);
+          }
+        }
         setData( data => {
           const newData = [...data];
           newData.push(heartRate);
@@ -131,6 +166,7 @@ const Video = () => {
         videoConstraints={videoConstraints}
       />
       <Chart plot={data}/>
+      <Emotions emotion={emotion} />
       <canvas ref={canvasRef} id="primary-canvas" height={720} width={1280}/>
       <canvas ref={tempCanvasRef} id="secondary-canvas" height={720} width={1280}/>
       <img ref={imageRef} />

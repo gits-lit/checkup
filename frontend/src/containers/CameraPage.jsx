@@ -37,7 +37,7 @@ const CameraPage = (props) => {
       <Questions />
     </div>*/
     <div>
-      <Video />
+      <Video started={started}/>
       <SpeechDetector startTimer={() => {setStarted(true); setTimer(1);}}/>
       <Questions questionIndex={questionIndex} totalQuestions={10} moveNext={moveNext} moveBack={moveBack}/>
       <Toolbar timer={timer} moveNext={moveNext} moveBack={moveBack}/>
