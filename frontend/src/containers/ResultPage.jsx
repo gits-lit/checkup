@@ -1,4 +1,5 @@
 import React from 'react';
+import HeartRateGraph from '../components/HeartRateGraph';
 import ProgressGraph from '../components/ProgressGraph';
 
 const ResultPageContainer = () => {
@@ -28,6 +29,7 @@ const ResultPageContainer = () => {
         name="&#x1F4AA; Physical Score"
         percent='49'
         title="Physical Health"/>
+      <HeartRateGraph />
     </div>
   )
 }
