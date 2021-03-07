@@ -1,4 +1,5 @@
 import React from 'react';
+import {loadLocations} from './utils.js';
 
 import LocationCarousel from '../components/LocationCarousel';
 import Map from '../components/Map';
@@ -7,7 +8,7 @@ const LocationPageContainer = () => {
   const mapLoad = map => {
     setTimeout(() => {
       window.map = map;
-      //loadLocations(map, locations);
+      loadLocations(map, [{lat: -117.06651266267941, long: 32.76570649214452}]);
     }, 2000);
   };
 
