@@ -4,13 +4,26 @@ import {loadLocations} from './utils.js';
 import LocationCarousel from '../components/LocationCarousel';
 import Map from '../components/Map';
 
+const locations = [{lat: 32.76570649214452, long: -117.06651266267941}, {lat: 32.7256337, long: -117.1616766}, {lat: 32.7256001, long: -117.1616203}, {lat: 32.7256001, long: -117.1616203}]
 const LocationPageContainer = () => {
   const mapLoad = map => {
     setTimeout(() => {
       window.map = map;
-      loadLocations(map, [{lat: -117.06651266267941, long: 32.76570649214452}]);
+      loadLocations(map, locations);
     }, 2000);
   };
+
+  const carouselChange = (from, to) => {
+    console.log(to);
+    console.log(locations[to]);
+    window.map.flyTo({
+      center: [
+        locations[to].long,
+        locations[to].lat,
+      ],
+      essential: true // this animation is considered essential with respect to prefers-reduced-motion
+      })
+    }
 
   return (
     <div className="location-page">
@@ -18,11 +31,12 @@ const LocationPageContainer = () => {
         <h1>Local Doctors</h1>
         <h3>Please enable location sharing on your browser</h3>
       <LocationCarousel
+      beforeChange={carouselChange}
       information={[
         { name:'Jamie Lavender, MD - Sharp Rees-Stealy Downtown', 
           occupation: 'doctor', // Type of doctor
           lat: 32.7256337,
-          'location-img': 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.mapquest.com%2Fus%2Fcalifornia%2Fpacific-medical-care-359975010&psig=AOvVaw2ERT7QrSHArk2grhw5VJIz&ust=1615241678166000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCNDVl6aan-8CFQAAAAAdAAAAABAD',
+          'location-img': 'https://d279m997dpfwgl.cloudfront.net/wp/2020/06/doctor-office.jpg',
           long: -117.1616766,
           address: '1501 Fifth Ave Suite 100, San Diego',
           'phone-num': '(858)-263-9700',
@@ -32,7 +46,7 @@ const LocationPageContainer = () => {
        { name:'Anthony Puopolo, MD', 
          occupation: 'doctor', // Type of doctor
          lat: 32.7256001,
-         'location-img': 'https://www.google.com/imgres?imgurl=https%3A%2F%2Fimages.sharp.com%2Flocations%2Fsharp-rees-s-912-1.jpg&imgrefurl=https%3A%2F%2Fwww.sharp.com%2Flocations%2Fsharp-rees-stealy-downtown-912&tbnid=B-uWIOT5TOI40M&vet=12ahUKEwibrpeDmp_vAhVkP30KHa9DCysQMygAegQIARBr..i&docid=6xM43XES6JpLRM&w=730&h=408&q=300%20fir%20street&hl=en&ved=2ahUKEwibrpeDmp_vAhVkP30KHa9DCysQMygAegQIARBr',
+         'location-img': 'https://scopeblog.stanford.edu/wp-content/uploads/2020/06/doctors-office-1944117-scaled-e1591229685470-1152x578.jpg',
          long: -117.1616203,
          address: '300 Fir St, San Diego', // Address of doctor office
          'phone-num': '(619)-446-1575',
@@ -42,7 +56,7 @@ const LocationPageContainer = () => {
           { name: 'Dr. Wilma J. Wooten, MD', 
           occupation: 'doctor', // Type of doctor
           lat: 32.7256001,
-          'location-img': 'https://www.google.com/imgres?imgurl=https%3A%2F%2Fimages.sharp.com%2Flocations%2Fsharp-rees-s-912-1.jpg&imgrefurl=https%3A%2F%2Fwww.sharp.com%2Flocations%2Fsharp-rees-stealy-downtown-912&tbnid=B-uWIOT5TOI40M&vet=12ahUKEwibrpeDmp_vAhVkP30KHa9DCysQMygAegQIARBr..i&docid=6xM43XES6JpLRM&w=730&h=408&q=300%20fir%20street&hl=en&ved=2ahUKEwibrpeDmp_vAhVkP30KHa9DCysQMygAegQIARBr',
+          'location-img': 'https://media.pri.org/s3fs-public/styles/story_main/public/story/images/25065081582_6d669759be_o.jpg?itok=POvhiOww',
           long: -117.1616203,
           address: '300 Fir Str, San Diego', // Address of doctor office
           'phone-num': '(619)-446-1575',

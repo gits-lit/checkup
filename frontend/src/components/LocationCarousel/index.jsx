@@ -21,7 +21,7 @@ const LocationCarousel = (props) => {
 
   return (
     <div className="location-carousel-container">
-    <Carousel {...settings}>
+    <Carousel {...settings} beforeChange={props.beforeChange}>
       {props.information.map((info, index) => {
         return (
         <div className="location-carousel">

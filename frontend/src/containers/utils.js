@@ -19,7 +19,7 @@ export const loadLocations = (map, coords) => {
       var options = {
         obj: '/pill/scene.gltf',
         type: 'gltf',
-        scale: 10,
+        scale: 20,
         units: 'meters',
         anchor: 'center',
         rotation: { x: 90, y: 180, z: 0 } //default rotation
@@ -30,7 +30,7 @@ export const loadLocations = (map, coords) => {
         const coord = coords[i];
         window.tb.loadObj(options, function (model) {
           console.log('placing');
-          truck = model.setCoords([coord.lat, coord.long]);
+          truck = model.setCoords([coord.long, coord.lat]);
           window.tb.add(truck);
           let rotation = 0;
           function animate() {
