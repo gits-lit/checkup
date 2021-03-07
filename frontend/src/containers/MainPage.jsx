@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 
 import ParentPage from '../components/ParentPage';
 import SideBar from '../components/SideBar';
+import CameraPage from './CameraPage';
 
 const MainPageContainer = () => {
 
-  const [click, setClick] = useState('steps');
+  const [click, setClick] = useState('camera');
 
   return (
     <div>
@@ -17,7 +18,7 @@ const MainPageContainer = () => {
       {
         click === 'camera' ?
           <ParentPage>
-            <div>1</div>
+            <CameraPage />
           </ParentPage> 
         : click === 'bullet' ?
           <ParentPage>

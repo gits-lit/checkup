@@ -51,8 +51,8 @@ export class HeartRateFinder {
 
 
             this.heartRate = get_freq_between_bounds(interpolated, complex, freqs, 50, 150);
-            console.log("wow progress");
-            console.log(this.heartRate);
+            //console.log("wow progress");
+            //console.log(this.heartRate);
 
 
             //let hamming = hamming_func(linspace(0,1,this.buf_siz),this.buf_siz);

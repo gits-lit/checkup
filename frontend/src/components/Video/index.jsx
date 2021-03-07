@@ -14,6 +14,8 @@ const videoConstraints = {
 
 const thing = new utils.HeartRateFinder(256);
 
+let interval = null;
+
 const Video = () => {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
@@ -33,7 +35,7 @@ const Video = () => {
       faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
       faceapi.nets.faceExpressionNet.loadFromUri('/models')
     ]).then(() => {
-      setInterval(async () => {
+      interval = setInterval(async () => {
         //capture();
         const canvas = canvasRef.current;
         const tempCanvas = tempCanvasRef.current;
@@ -43,43 +45,62 @@ const Video = () => {
   
         if (video && canvas && tempCanvas && image && webcamRef.current) {
           const detections = await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions());//.withFaceExpressions();
-          //const resizedDetections = faceapi.resizeResults(detections, displaySize);
+          
           //console.log('drawing');
           //console.log(resizedDetections);
-          if (detections) {
+          if (detections && video && canvas && tempCanvas && image && webcamRef.current) {
             canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
             const foreheadCoords = utils.getForeheadCoords(detections.box.x, detections.box.y, detections.box.width, detections.box.height);
-            faceapi.draw.drawDetections(canvas, detections);
+            //const resizedDetections = faceapi.resizeResults(detections, displaySize);
+            const resizedDetections = faceapi.resizeResults(detections, {width: canvas.width, height: canvas.height});
+            const box = detections.box;
+            const normalizedX = box.x / 1280;
+            const normalizedY = box.y / 720;
+            const normalizedWidth = box.width / 1280;
+            const normalizedHeight = box.height / 720;
+            const ctx = canvas.getContext('2d');
+            const x = normalizedX * canvas.width;
+            const width = normalizedY * canvas.width;
+            const y = normalizedWidth * canvas.height;
+            const height = normalizedHeight * canvas.height;
+            //console.log(x);
+            //console.log(y);
+            //console.log(width);
+            //console.log(height);
+            ctx.beginPath();
+            var gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
+            gradient.addColorStop("0", "#0761FF");
+            gradient.addColorStop("0.5", "#FF59F8");
+            gradient.addColorStop("1", "#AE72FF");
+            //#0761FF -53.27%, #FF59F8 89.25%, #AE72FF 139.44%
+            ctx.lineWidth = "6";
+            ctx.strokeStyle = gradient;
+            ctx.rect(box.x, box.y, box.width, box.height);
+            ctx.stroke();
 
             // Set the src of image element 
             const imageSrc = webcamRef.current.getScreenshot();
             image.src = imageSrc;
             image.onload = () => {
               // Throw the image element on the canvas
-              const ctx = tempCanvas.getContext('2d');
-              ctx.drawImage(image, 0, 0, 1280, 720);
+              const ctx2 = tempCanvas.getContext('2d');
+              ctx2.drawImage(image, 0, 0, canvas.width, canvas.height);
               //console.log(tempCanvas);
 
               // Pull the image data from the canvas
-              const imageData = ctx.getImageData(foreheadCoords.x, foreheadCoords.y, foreheadCoords.width, foreheadCoords.height);
-              ctx.clearRect(0, 0, tempCanvas.width, tempCanvas.height);
+              const imageData = ctx2.getImageData(foreheadCoords.x, foreheadCoords.y, foreheadCoords.width, foreheadCoords.height);
+              ctx2.clearRect(0, 0, tempCanvas.width, tempCanvas.height);
               thing.updateHeartRate(imageData.data);
-              //console.log('HERE IS THE DATA KYLE');
-              // BELOW IS THE OVERALL IMAGE DATA
-              //console.log(imageData.data);
-              // HERE ARE THE DIMENSIONS OF THE BOX PLEASE BE CAREFUL CANVAS LOCATIONS (I think canvas 0,0 is top right but you'll need to check)
-              //console.log('x is ' + detections.box.x);
-              //console.log('y is ' + detections.box.y);
-              //console.log('width is ' + detections.box.width);
-              //console.log('height is ' + detections.box.height);
-              // Every 4 values is r, g, b, a repeated
-              // Dimensions is width 1280 height 720
+              //console.log(thing.heartRate);
               
             }
           }
           //faceapi.draw.drawFaceExpressions(canvas, detections);
         }
         // Change this for time between screenshots (in milliseconds)
+        return () => {
+          clearInterval(interval);
+        }
       }, 1000/60);
    })
   }, []);
@@ -96,7 +117,7 @@ const Video = () => {
         videoConstraints={videoConstraints}
       />
       <canvas ref={canvasRef} id="primary-canvas" height={720} width={1280}/>
-      <canvas ref={tempCanvasRef} height={720} width={1280}/>
+      <canvas ref={tempCanvasRef} id="secondary-canvas" height={720} width={1280}/>
       <img ref={imageRef} />
     </div>
   );

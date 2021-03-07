@@ -1,7 +1,7 @@
 .speech-detector {
   position: absolute;
   bottom: 20px;
-  left: 10vw;
+  left: 0;
   width: 70vw;
   .speech-content {
     position: absolute;
@@ -96,4 +96,14 @@
       }
     }
   }
+}
+
+#start-recording {
+  cursor: pointer;
+  border-radius: 14px;
+  width: 160px;
+  position: absolute;
+  bottom: 160px;
+  z-index: 100;
+  left: calc(35vw - 80px);
 }

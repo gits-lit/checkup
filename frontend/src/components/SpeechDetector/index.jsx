@@ -2,12 +2,14 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 
+import start from '../../assets/start.png';
+
 import './style.scss';
 
 const visualValueCount = 9;
 
 const SpeechDetector = () => {
-  //const [text, setText] = useState('');
+  const [clicked, setClicked] = useState(false);
   const visualizerRef = useRef(null);
 
   const processFrame = ( data ) => {
@@ -16,9 +18,9 @@ const SpeechDetector = () => {
     const visualElements = document.querySelectorAll( '#visualizer > div' );
     for ( let i = 0; i < visualValueCount; ++i ) {
       const value = values[ dataMap[ i ] ] / 255;
-      if (visualElements) {
-      const elmStyles = visualElements[ i ].style;
-      elmStyles.height = `${value * 60}px`;
+      if (visualElements && visualElements[ i ]) {
+        const elmStyles = visualElements[ i ].style;
+        elmStyles.height = `${value * 60}px`;
       }
       //elmStyles.transform = `scaleY( ${ value } )`;
       //elmStyles.opacity = Math.max( .25, value )
@@ -26,6 +28,7 @@ const SpeechDetector = () => {
   };
 
   const startRecording = () => {
+    setClicked(true);
     SpeechRecognition.startListening({ continuous: true });
     const audioContext = new AudioContext();
     navigator.mediaDevices.getUserMedia( { audio: true, video: false } )
@@ -58,14 +61,6 @@ const SpeechDetector = () => {
   const { transcript, resetTranscript } = useSpeechRecognition();
 
   useEffect(() => {
-    const visualMainElement = document.getElementById('visualizer');
-    for ( let i = 0; i < visualValueCount; ++i ) {
-      const elm = document.createElement( 'div' );
-      visualMainElement.appendChild( elm );
-    }
-  }, []);
-
-  useEffect(() => {
     if (transcript.length > 50) {
       resetTranscript();
     }
@@ -76,16 +71,28 @@ const SpeechDetector = () => {
   }
 
   return (
-    <div className="speech-detector">
-      <div id="visualizer" ref={visualizerRef}></div>
-      <div className="speech-content">
-        <div>
-        <h1>Live Transcript</h1>
-        <span>{transcript}</span>
-        <button onClick={startRecording}>start recording</button>
+    <>
+      <div className="speech-detector">
+        <div id="visualizer" ref={visualizerRef}>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <div className="speech-content">
+          <div>
+          <h1>Live Transcript</h1>
+          <span>{transcript}&nbsp;</span>
+          </div>
         </div>
       </div>
-    </div>
+      {!clicked ? <img onClick={startRecording} id="start-recording" src={start} /> : null}
+    </>
   )
 }
 
