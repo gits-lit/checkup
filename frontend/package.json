@@ -15,6 +15,7 @@
     "ndarray-linspace": "^1.0.2",
     "ndarray-ops": "^1.2.2",
     "react": "^17.0.1",
+    "react-charts": "^2.0.0-beta.7",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
