@@ -16,10 +16,7 @@ const HeartRateGraph = (props) => {
   const data = React.useMemo(
     () => {
       const newData = [];
-      console.log(props.data);
       for (let i = 0 ; i < props.data.length - 5; i += 5) {
-        console.log('loop');
-        console.log(i);
         let average = 0;
         for (let j = i; j < i + 5; j += 1) {
           average += parseInt(props.data[j])

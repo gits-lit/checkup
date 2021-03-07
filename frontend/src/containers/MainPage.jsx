@@ -7,6 +7,7 @@ import ParentPage from '../components/ParentPage';
 import ResultPage from './ResultPage'
 import SideBar from '../components/SideBar';
 import CameraPage from './CameraPage';
+import ResultHeader from '../components/ResultHeader';
 
 const MainPageContainer = () => {
   const history = useHistory();
@@ -59,6 +60,7 @@ const MainPageContainer = () => {
                 setClick('location');
               }}
             />
+            <ResultHeader/>
             <ResultPage emotionData={emotions} heartData={data}/>
           </ParentPage> 
         : click === 'location' ?

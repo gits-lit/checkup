@@ -28,6 +28,7 @@ const SpeechDetector = (props) => {
   };
 
   const startRecording = () => {
+    props.startRecording();
     props.startTimer();
     setClicked(true);
     SpeechRecognition.startListening({ continuous: true });
