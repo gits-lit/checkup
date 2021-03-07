@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
-import { Chart } from 'react-charts';
+//import { Chart } from 'react-charts';
 import './style.scss';
 
 const ChartContainer = (props) => {
@@ -40,13 +40,13 @@ const ChartContainer = (props) => {
     []
   )
 
-	//					
+	//					<Chart data={data} axes={axes} series={series} getSeriesStyle={getSeriesStyle} />
 
 	return (
 		
 			<div className="heart-chart">
 				<div className="chart-container">
-					<Chart data={data} axes={axes} series={series} getSeriesStyle={getSeriesStyle} />
+					
 					<div className="bpm">❤️ &nbsp; {props.plot[props.plot.length - 1]}bpm</div>
 				</div>
 			</div>
