@@ -5,9 +5,6 @@ import Questions from '../components/Questions';
 import SpeechDetector from '../components/SpeechDetector';
 import Toolbar from '../components/Toolbar';
 
-import OpusMediaRecorder from 'opus-media-recorder';
-window.MediaRecorder = OpusMediaRecorder;
-
 let currentRecorder = null;
 const CameraPage = (props) => {
   const [questionIndex, setQuestionIndex] = useState(1);
@@ -69,21 +66,9 @@ const CameraPage = (props) => {
           const audio = new Audio(audioUrl);
           const play = () => audio.play();
           resolve({ audioBlob, audioUrl, play });
-          const payload = {
-            requests: [
-              {
-                  config: {
-                      encoding: "OGG",
-                      sampleRateHertz: 8000,
-                      languageCode: "en-US",
-                  },
-                  audio: {
-                      uri: audioUrl
-                  }
-              }
-            ]
-          };
-          const response = fetch(`https://speech.googleapis.com/v1/speech:recognize?key=${process.env.REACT_APP_API_KEY}`, {
+/*
+        
+          const response = await fetch(`https://speech.googleapis.com/v1/speech:recognize?key=${process.env.REACT_APP_API_KEY}`, {
             method: 'POST',
             headers: {
               "Content-Type": "application/json"
