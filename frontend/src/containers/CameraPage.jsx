@@ -14,7 +14,6 @@ const CameraPage = () => {
   }, [])
 
   return (
-    /* Temporarily removed due to lag
     <div>
       <Video />
       <SpeechDetector />
@@ -24,6 +23,7 @@ const CameraPage = () => {
       <SpeechDetector />
       <Questions questionIndex={questionIndex} totalQuestions={20}/>
     </div>
+    */
   )
 }
 
