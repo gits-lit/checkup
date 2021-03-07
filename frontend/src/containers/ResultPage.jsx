@@ -61,4 +61,4 @@ const ResultPageContainer = (props) => {
   )
 }
 
-export default ResultPageContainer;å
+export default ResultPageContainer;
