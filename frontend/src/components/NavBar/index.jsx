@@ -29,6 +29,7 @@ const NavBar = (props) => {
           </div>
         </NavLink>
       </div>
+      <div className="line"></div>
     </div>
   )
 }
