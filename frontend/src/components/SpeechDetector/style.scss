@@ -105,5 +105,6 @@
   position: absolute;
   bottom: 160px;
   z-index: 100;
-  left: calc(35vw - 80px);
+  left: calc(32.5vw - 80px);
+  user-select:none;
 }

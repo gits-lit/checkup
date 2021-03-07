@@ -36,11 +36,11 @@ const Questions = (props) => {
       </div>
       {mode ? <AnswerScroll /> : <QuestionScroll questionIndex={props.questionIndex}/>}
       <div className = "bottom-buttons">
-        <div className="button">
+        <div className="button" onClick={props.moveBack}>
           <img src={back}/>
           Go back
         </div>
-        <div className="button">
+        <div className="button" onClick={props.moveNext}>
           <img src={skip}/>
           Skip
         </div>

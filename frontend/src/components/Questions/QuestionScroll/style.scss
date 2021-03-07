@@ -3,6 +3,7 @@
   overflow: scroll;
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
+  position: relative;
   .question-piece {
     font-size: 1.2em;
     font-weight: 600;

@@ -30,7 +30,9 @@ const MainPageContainer = () => {
                 setClick('bullet');
               }}
             />
-            <CameraPage />
+            <CameraPage  setNext={() => {
+                setClick('bullet');
+              }}/>
           </ParentPage> 
         : click === 'bullet' ?
           <ParentPage>

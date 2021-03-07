@@ -8,7 +8,7 @@ import './style.scss';
 
 const visualValueCount = 9;
 
-const SpeechDetector = () => {
+const SpeechDetector = (props) => {
   const [clicked, setClicked] = useState(false);
   const visualizerRef = useRef(null);
 
@@ -28,6 +28,7 @@ const SpeechDetector = () => {
   };
 
   const startRecording = () => {
+    props.startTimer();
     setClicked(true);
     SpeechRecognition.startListening({ continuous: true });
     const audioContext = new AudioContext();

@@ -1,0 +1,130 @@
+.toolbar {
+  position: absolute;
+  left: 0;
+  width: 65vw;
+  z-index: 50;
+  bottom: 160px;
+  height: 70px;
+  height: calc(85% - 150px);
+  text-align: center;
+
+  .bottom-bar {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 65vw;
+    left: 0;
+
+    div {
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(15.0821px);
+      border-radius: 10px;
+      cursor: pointer;
+      height: 45px;
+      width: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 10px;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.5);
+      }
+
+      img {
+        width: 20px;
+        height: 20px;
+        user-select:none;
+      }
+    }
+  }
+
+  .next {
+    width: 160px;
+    cursor: pointer;
+    user-select:none;
+  }
+
+  .timer {
+    color: white;
+    line-height: 50px;
+    font-weight: 600;
+    font-size: 1.4em;
+    width: 100px;
+    height: 50px;
+    right: 10px;
+    top: 40px;
+    border-radius: 10px;
+    position: absolute;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(18.8526px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+  }
+
+  .dot {
+    border-radius: 100%;
+    width: 15px;
+    height: 15px;
+    background-color: #FF0000;
+    display: inline-block;
+    margin-right: 4px;
+    border: 3px solid white;
+    &.blink {-webkit-animation: 1s blink ease infinite;
+    -moz-animation: 1s blink ease infinite;
+    -ms-animation: 1s blink ease infinite;
+    -o-animation: 1s blink ease infinite;
+    animation: 1s blink ease infinite;
+    }
+  }
+}
+
+@keyframes blink {
+  from, to {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+
+@-moz-keyframes blink {
+  from, to {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes blink {
+  from, to {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@-ms-keyframes blink {
+  from, to {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes blink {
+  from, to {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}

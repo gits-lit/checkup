@@ -17,11 +17,16 @@ const QuestionScroll = (props) => {
   useEffect(() => {
     console.log('changed');
     const element = document.getElementById(`q-${props.questionIndex}`)
-    const elemRect = element.getBoundingClientRect();
+    console.log(element.offsetTop)
+    console.log(element.offsetParent);
+    //const elemRect = element.getBoundingClientRect();
     //console.log(elemRect.top);
     const questionScroll = document.getElementById("question-scroll");
     const questionRect = questionScroll.getBoundingClientRect();
-    const topScroll =  elemRect.top - questionRect.top - (questionScroll.offsetHeight/2) + (element.offsetHeight /2);
+    //console.log(elemRect.top);
+    const topScroll =  element.offsetTop - (questionScroll.offsetHeight/2) + (element.offsetHeight /2);
+    console.log(topScroll);
+    console.log(questionScroll.scrollHeight);
     //console.log(questionRect.top);
     questionScroll.scrollTo({top: topScroll, left: 0, behavior: 'smooth' });
   }, [props.questionIndex]);
