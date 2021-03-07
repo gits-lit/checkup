@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import LocationPage from './LocationPage'
 import NavBar from '../components/NavBar';
 import ParentPage from '../components/ParentPage';
 import SideBar from '../components/SideBar';
@@ -55,7 +56,7 @@ const MainPageContainer = () => {
               setBack={() => {
                 setClick('bullet');}}
             />
-            <div>3</div>
+            <LocationPage />
           </ParentPage> :
         <></>
       }
