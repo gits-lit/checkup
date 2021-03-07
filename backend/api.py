@@ -58,19 +58,17 @@ def checkDisease():
          gendered_symptom_list = json.load(f)
 
    symptom_ids = []
-   red_flags = []
+   red_flags = 0
 
    for symptom in symptom_names:
       if symptom in symptom_list:
          symptom_ids.append(symptom_list[symptom])
          if gendered_symptom_list[symptom]["HasRedFlag"]:
-            red_flags.append(0)
-         else:
-            red_flags.append(1)
+            red_flags += 1
       else:
          print("Symptom " + symptom + " not found!")
 
-   score = 100 * (sum(red_flags) / len(red_flags))
+   score = max(0, 100 * ((-4)/len(symptom_list) * (len(symptom_names) + red_flags) + 1))
 
    diagnosis_url = "https://priaid-symptom-checker-v1.p.rapidapi.com/diagnosis"
    querystring = {"symptoms": str(symptom_ids), "gender": gender, "year_of_birth": year_of_birth, "language": "en-gb"}
