@@ -12,6 +12,15 @@ const MainPageContainer = () => {
   const history = useHistory();
   const [click, setClick] = useState('camera');
   const [data, setData] = useState([]);
+  const [emotions, setEmotions] = useState({
+    angry: 0,
+    neutral: 0,
+    happy: 0,
+    surprised: 0,
+    sad: 0,
+    fearful: 0,
+    disgusted: 0
+  });
 
   return (
     <div>
@@ -36,7 +45,7 @@ const MainPageContainer = () => {
             />
             <CameraPage  setNext={() => {
                 setClick('bullet');
-              }} data={data} setData={setData}/>
+              }} data={data} setData={setData} setEmotions={setEmotions}/>
           </ParentPage> 
         : click === 'bullet' ?
           <ParentPage>
@@ -50,7 +59,7 @@ const MainPageContainer = () => {
                 setClick('location');
               }}
             />
-            <ResultPage heartData={data}/>
+            <ResultPage emotionData={emotions} heartData={data}/>
           </ParentPage> 
         : click === 'location' ?
           <ParentPage>

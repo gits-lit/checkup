@@ -1,9 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import HeartRateGraph from '../components/HeartRateGraph';
 import BarGraph from '../components/BarGraph';
 import ProgressGraph from '../components/ProgressGraph';
 
 const ResultPageContainer = (props) => {
+  const [newEmotionData, setEmotion] = useState([['name1','318'],['name2','93'],['name3','43'],['name4','20'],['name5','15']]);
+
+  useEffect(() => {
+    console.log(props.emotionData);
+    console.log('feels');
+    let sortable = [];
+    for (let emotion in props.emotionData) {
+        sortable.push([emotion, props.emotionData[emotion]]);
+    }
+
+    sortable.sort(function(a, b) {
+        return b[1] - a[1];
+    });
+
+    console.log(sortable);
+    setEmotion(sortable.slice(0, 5));
+
+  }, [props.emotionData]);
+
   return (
     <div className="result-page">
       <ProgressGraph color={{
@@ -31,7 +50,7 @@ const ResultPageContainer = (props) => {
         percent='49'
         title="Physical Health"/>
       <HeartRateGraph data={props.heartData}/>
-      <BarGraph emotions={[['name1','318'],['name2','93'],['name3','43'],['name4','20'],['name5','15']]}/>
+      <BarGraph emotions={newEmotionData}/>
     </div>
   )
 }

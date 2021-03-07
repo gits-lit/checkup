@@ -12,7 +12,10 @@ const LocationPageContainer = () => {
   };
 
   return (
-    <div className="location-carousel">
+    <div className="location-page">
+      <div className="location-container">
+        <h1>Local Doctors</h1>
+        <h3>Please enable location sharing on your browser</h3>
       <LocationCarousel
       information={[
         { name:'Dr. Nguyen’s Dermatology', 
@@ -47,6 +50,7 @@ const LocationPageContainer = () => {
       }
     ]}
     />
+    </div>
   <Map mapLoad={mapLoad} />
   </div>
   )

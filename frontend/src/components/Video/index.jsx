@@ -27,15 +27,7 @@ const Video = (props) => {
   const imageRef = useRef(null);
 
   const [emotion, setCurrentEmotion] = useState('neutral');
-  const [emotions, setEmotions] = useState({
-    angry: 0,
-    neutral: 0,
-    happy: 0,
-    surprised: 0,
-    sad: 0,
-    fearful: 0,
-    disgusted: 0
-  });
+
   const fps = 30;
 
   const capture = useCallback(
@@ -65,7 +57,7 @@ const Video = (props) => {
                 mood = key;
               }
             });
-            setEmotions(emotions => {
+            props.setEmotions(emotions => {
               const newEmotions = {...emotions};
               if (mood in newEmotions) {
                 newEmotions[mood] += 1
